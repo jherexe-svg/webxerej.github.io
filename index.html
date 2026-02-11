@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Nikol ❤️</title>
+<title>Para Nikol 💖</title>
 
 <style>
 body{
@@ -12,37 +12,50 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);
-  font-family:sans-serif;
+  background:linear-gradient(135deg,#ff416c,#ff4b2b);
+  font-family: 'Segoe UI', sans-serif;
+  text-align:center;
   overflow:hidden;
 }
 
 .card{
   background:white;
   padding:40px;
-  border-radius:25px;
-  text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,0.3);
-  animation:fadeIn 1.5s ease;
+  border-radius:20px;
+  width:85%;
+  max-width:350px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.3);
+  animation:fade 1.5s ease;
 }
 
-h1{color:#e63946;}
+h1{
+  font-size:22px;
+  color:#ff416c;
+}
 
 button{
-  padding:10px 20px;
+  padding:12px 20px;
   border:none;
   border-radius:25px;
-  cursor:pointer;
   margin:10px;
   font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-#si{background:#e63946;color:white;}
-#no{background:gray;color:white;position:absolute;}
+.si{
+  background:#ff416c;
+  color:white;
+}
 
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
+.no{
+  background:#ccc;
+  position:absolute;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:scale(0.8);}
+  to{opacity:1; transform:scale(1);}
 }
 </style>
 </head>
@@ -50,23 +63,18 @@ button{
 <body>
 
 <div class="card">
-  <h1>Nikol 💖</h1>
-  <p>¿Quieres ser mi San Valentín?</p>
-  <button id="si" onclick="aceptar()">Sí 💕</button>
-  <button id="no">No 😢</button>
+  <h1>Nikol 💖<br>¿Quieres vivir algo especial conmigo?</h1>
+  <br>
+  <button class="si" onclick="window.location.href='galeria.html'">Sí ❤️</button>
+  <button class="no" id="noBtn">No 😜</button>
 </div>
 
 <script>
-function aceptar(){
-  window.location.href="sorpresa.html";
-}
-
-const noBtn=document.getElementById("no");
+const noBtn=document.getElementById("noBtn");
 
 noBtn.addEventListener("mouseover",()=>{
-  noBtn.style.top=Math.random()*80+"%";
-  noBtn.style.left=Math.random()*80+"%";
-  noBtn.innerText="Mejor el Sí 😏";
+  noBtn.style.top=Math.random()*80+"vh";
+  noBtn.style.left=Math.random()*80+"vw";
 });
 </script>
 
