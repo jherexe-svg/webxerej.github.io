@@ -2,55 +2,51 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Nuestro Recuerdo 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un Recuerdo 💕</title>
 
 <style>
 body{
   margin:0;
   overflow:hidden;
   font-family:'Segoe UI';
-  background:black;
-  color:white;
-  text-align:center;
 }
 
-/* Fondo con imagen oscurecida */
 .fondo{
   position:fixed;
   width:100%;
   height:100%;
   background:url('foto1.jpg') center/cover no-repeat;
   filter:brightness(40%);
-  z-index:-1;
 }
 
-/* Texto tipo video romántico */
-.mensaje{
+.texto{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  font-size:30px;
+  color:white;
+  text-align:center;
   width:80%;
-  animation:aparecer 4s ease;
+  font-size:20px;
+  animation:fade 3s ease;
 }
 
-@keyframes aparecer{
+@keyframes fade{
   from{opacity:0; transform:translate(-50%,-60%);}
   to{opacity:1; transform:translate(-50%,-50%);}
 }
 
 .boton{
   position:absolute;
-  bottom:50px;
+  bottom:40px;
   left:50%;
   transform:translateX(-50%);
-  padding:12px 25px;
+  padding:10px 25px;
   background:white;
   color:black;
-  border-radius:25px;
+  border-radius:20px;
   text-decoration:none;
-  font-weight:bold;
 }
 </style>
 </head>
@@ -59,13 +55,13 @@ body{
 
 <div class="fondo"></div>
 
-<div class="mensaje">
-  Ese día entendí que no quería más historias...
+<div class="texto">
+  Ese día fue uno de mis favoritos…
   <br><br>
-  Solo quería escribir la mía contigo ❤️
+  Porque estaba contigo ❤️
 </div>
 
-<a href="sorpresa.html" class="boton">Volver</a>
+<a href="final.html" class="boton">Continuar 💖</a>
 
 <audio id="musica" loop>
   <source src="those-eyes.mp3" type="audio/mpeg">
