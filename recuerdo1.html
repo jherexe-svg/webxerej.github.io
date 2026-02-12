@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valentine Edition 💌</title>
 
-
 <style>
 body{
   margin:0;
   background:#f7c9d4;
-  font-family:'Montserrat', sans-serif;
+  font-family: Arial, sans-serif;
   color:#8b1e2d;
 }
 
@@ -23,37 +22,29 @@ body{
 /* Encabezado */
 .header{
   text-align:center;
-  border-bottom:2px solid #c74c5c;
+  border-bottom:2px solid #8b1e2d;
   padding-bottom:10px;
 }
 
 .header h1{
-  font-family:'Playfair Display', serif;
-  font-size:32px;
+  font-size:28px;
   margin:5px 0;
 }
 
-.sub{
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-}
-
-/* Título central */
+/* Título */
 .main-title{
   text-align:center;
   margin:30px 0;
 }
 
 .main-title h2{
-  font-family:'Playfair Display', serif;
-  font-size:26px;
+  font-size:22px;
   margin:0;
 }
 
 .script{
-  font-family:'Dancing Script', cursive;
-  font-size:42px;
+  font-size:34px;
+  font-weight:bold;
 }
 
 /* Carta */
@@ -62,8 +53,9 @@ body{
   padding:15px;
   border-radius:10px;
   margin-bottom:20px;
-  font-size:14px;
+  font-size:15px;
   line-height:1.6;
+  color:#5a0f1a;
 }
 
 /* Imagen */
@@ -73,7 +65,7 @@ body{
 
 .imagen img{
   width:100%;
-  border:5px solid #c74c5c;
+  border:5px solid #8b1e2d;
   border-radius:8px;
 }
 
@@ -83,31 +75,46 @@ body{
   margin:20px auto;
   padding:12px;
   text-align:center;
-  background:#c74c5c;
+  background:#8b1e2d;
   color:white;
   text-decoration:none;
   border-radius:25px;
   font-weight:bold;
 }
-
-/* Cupón */
-.cupon{
-  margin-top:25px;
-  border:2px dashed #c74c5c;
-  padding:15px;
-  text-align:center;
-  background:white;
-  border-radius:10px;
-  font-size:13px;
-}
 </style>
 </head>
 
-<body onclick="document.getElementById('musica').play()">
+<body>
 
 <div class="container">
 
   <div class="header">
-    <div class="sub">
-      <span>EDICIÓN ESPECIAL</span>
-      <s
+    <h1>Valentine Edition</h1>
+    <p>EDICIÓN ESPECIAL - FEBRERO 2026</p>
+  </div>
+
+  <div class="main-title">
+    <h2>Will You Be My</h2>
+    <div class="script">Valentine, Nikol? ❤️</div>
+  </div>
+
+  <div class="carta">
+    <strong>Diario de amor:</strong><br><br>
+    Desde que nuestros caminos se cruzaron,
+    supe que quería vivir cada momento contigo.
+    <br><br>
+    Mi corazón encontró en ti su lugar favorito.
+    Quiero un San Valentín lleno de amor,
+    risas sinceras y recuerdos eternos.
+  </div>
+
+  <div class="imagen">
+    <img src="foto1.jpg" alt="Nuestro recuerdo">
+  </div>
+
+  <a href="final.html" class="boton">Aceptar la misión 💖</a>
+
+</div>
+
+</body>
+</html>
