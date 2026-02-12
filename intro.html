@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra Historia</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Georgia', serif;
+}
+
+body{
+  overflow:hidden;
+  color:white;
+}
+
+/* VIDEO FONDO */
+video{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+}
+
+/* OSCURECER */
+.overlay{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.65);
+  z-index:-1;
+}
+
+/* CONTENIDO */
+.container{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.text{
+  font-size:24px;
+  line-height:1.8;
+  max-width:400px;
+  min-height:180px;
+}
+
+.cursor{
+  display:inline-block;
+  width:3px;
+  background:white;
+  margin-left:5px;
+  animation:blink 1s infinite;
+}
+
+button{
+  margin-top:40px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:#c91d34;
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+  opacity:0;
+  transition:1s ease;
+}
+
+@keyframes blink{
+  0%,50%,100%{opacity:1;}
+  25%,75%{opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<video autoplay muted loop playsinline>
+  <source src="intro-video.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<div class="container">
+  <div>
+    <div class="text" id="typeText"></div>
+    <span class="cursor"></span>
+    <br>
+    <button id="btn" onclick="irGaleria()">Comenzar 💕</button>
+  </div>
+</div>
+
+<audio id="musica" loop>
+  <source src="those-eyes.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const texto = `Algunas historias
+no empiezan con una cita…
+
+empiezan con una mirada.
+
+Y esta…
+
+es la nuestra.`;
+
+let i = 0;
+const speed = 45; // velocidad escritura
+const target = document.getElementById("typeText");
+
+function typeWriter(){
+  if(i < texto.length){
+    target.innerHTML += texto.charAt(i) === "\n" ? "<br>" : texto.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  } else {
+    document.getElementById("btn").style.opacity = 1;
+  }
+}
+
+window.onload = function(){
+  typeWriter();
+};
+
+// Activar música al primer toque (móviles)
+document.addEventListener("click", function(){
+  const audio = document.getElementById("musica");
+  audio.volume = 0.4;
+  audio.play();
+},{once:true});
+
+function irGaleria(){
+  document.body.style.transition="1s";
+  document.body.style.opacity="0";
+  setTimeout(()=>{
+    window.location.href="galeria.html";
+  },1000);
+}
+</script>
+
+</body>
+</html>
