@@ -3,150 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Confirmado oficialmente</title>
+<title>Nuestro Comienzo</title>
 
 <style>
 body{
   margin:0;
-  background:#e94b4b;
+  background:linear-gradient(180deg,#e85a5a,#d94444);
   font-family:'Georgia', serif;
   display:flex;
   justify-content:center;
   align-items:center;
-  min-height:100vh;
+  height:100vh;
+  overflow:hidden;
   text-align:center;
   color:white;
-  overflow:hidden;
 }
 
+/* Contenedor */
 .container{
-  max-width:500px;
-  padding:20px;
-}
-
-h1{
-  font-size:32px;
-  margin-bottom:30px;
+  max-width:360px;
+  width:90%;
   animation:fadeIn 2s ease;
 }
 
-/* Corazón principal */
-.heart-wrapper{
-  position:relative;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin-bottom:30px;
+/* Título */
+h1{
+  font-size:24px;
+  margin-bottom:25px;
 }
 
-.main-heart{
-  width:260px;
-  height:230px;
-  background:white;
-  position:relative;
-  transform:rotate(-45deg);
-  border-radius:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+/* Corazón */
+.heart{
+  font-size:70px;
+  animation:beat 1.2s infinite;
 }
 
-.main-heart:before,
-.main-heart:after{
-  content:"";
-  width:260px;
-  height:230px;
-  background:white;
-  border-radius:50%;
-  position:absolute;
+@keyframes beat{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.15);}
 }
 
-.main-heart:before{
-  top:-130px;
-  left:0;
-}
-
-.main-heart:after{
-  left:130px;
-  top:0;
-}
-
-.heart-text{
-  position:absolute;
-  transform:rotate(45deg);
+/* Iniciales */
+.initials{
+  margin-top:15px;
   font-size:22px;
-  color:#c91d34;
-  width:200px;
-  font-style:italic;
-}
-
-/* Corazones pequeños */
-.small-hearts{
-  position:absolute;
-  bottom:-20px;
-  right:-30px;
-  display:flex;
-  gap:10px;
-}
-
-.small-heart{
-  width:60px;
-  height:60px;
-  background:linear-gradient(145deg,#f7d27f,#d4a64a);
-  transform:rotate(-45deg);
-  position:relative;
-  border-radius:10px;
-  box-shadow:0 5px 10px rgba(0,0,0,0.2);
-}
-
-.small-heart:before,
-.small-heart:after{
-  content:"";
-  width:60px;
-  height:60px;
-  background:linear-gradient(145deg,#f7d27f,#d4a64a);
-  border-radius:50%;
-  position:absolute;
-}
-
-.small-heart:before{
-  top:-30px;
-  left:0;
-}
-
-.small-heart:after{
-  left:30px;
-  top:0;
-}
-
-.initial{
-  position:absolute;
-  transform:rotate(45deg);
   font-weight:bold;
-  font-size:22px;
-  color:white;
-  width:60px;
-  line-height:60px;
+  letter-spacing:3px;
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{text-shadow:0 0 5px rgba(255,255,255,0.4);}
+  to{text-shadow:0 0 20px rgba(255,255,255,0.9);}
 }
 
 /* Texto final */
-.footer-text{
-  margin-top:30px;
-  font-size:15px;
+.message{
+  margin-top:25px;
+  font-size:14px;
   line-height:1.6;
-  animation:fadeIn 3s ease;
 }
 
+/* Botón música */
+button{
+  margin-top:25px;
+  padding:10px 20px;
+  border:none;
+  border-radius:25px;
+  background:white;
+  color:#c91d34;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+/* Animación entrada */
 @keyframes fadeIn{
   from{opacity:0; transform:translateY(15px);}
   to{opacity:1; transform:translateY(0);}
 }
 
-@media(max-width:480px){
-  h1{font-size:26px;}
-  .main-heart{width:220px;height:200px;}
-  .main-heart:before,
-  .main-heart:after{
-    width:220px;height:200px;
-  }
+/* Pétalos */
+.petal{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#ffb6c1;
+  border-radius:50%;
+  opacity:0.7;
+  animation:fall linear infinite;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-10vh);}
+  100%{transform:translateY(110vh);}
 }
 </style>
 </head>
@@ -155,34 +109,57 @@ h1{
 
 <div class="container">
 
-<h1>Confirmado oficialmente:</h1>
+<h1>Confirmado oficialmente 💖</h1>
 
-<div class="heart-wrapper">
+<div class="heart">❤️</div>
 
-  <div class="main-heart"></div>
-  <div class="heart-text">
-    Eres mi San Valentín.
-  </div>
+<div class="initials">
+N 💛 J
+</div>
 
-  <div class="small-hearts">
-    <div class="small-heart">
-      <div class="initial">N</div>
-    </div>
-    <div class="small-heart">
-      <div class="initial">J</div>
-    </div>
-  </div>
+<div class="message">
+Gracias por decir que sí. <br>
+No fue coincidencia. <br>
+No fue tarde. <br>
+Fue cuando tenía que ser. <br><br>
+Y esto… recién empieza.
+</div>
+
+<button onclick="activarMusica()">Activar música 🎵</button>
 
 </div>
 
-<div class="footer-text">
-  Gracias por decir que sí. <br>
-  Prepárate para un día bonito, <br>
-  sonrisas inevitables <br>
-  y recuerdos que se van a quedar.
-</div>
+<audio id="musica" loop>
+  <source src="athousandyears.mp3" type="audio/mpeg">
+</audio>
 
-</div>
+<script>
+function activarMusica(){
+  const audio = document.getElementById("musica");
+  audio.volume = 0;
+  audio.play();
+
+  let vol = 0;
+  const fade = setInterval(()=>{
+    if(vol < 0.5){
+      vol += 0.02;
+      audio.volume = vol;
+    } else {
+      clearInterval(fade);
+    }
+  },200);
+}
+
+/* Pétalos suaves */
+setInterval(()=>{
+  const petal = document.createElement("div");
+  petal.classList.add("petal");
+  petal.style.left = Math.random()*100 + "vw";
+  petal.style.animationDuration = (6 + Math.random()*4) + "s";
+  document.body.appendChild(petal);
+  setTimeout(()=>petal.remove(),9000);
+},700);
+</script>
 
 </body>
 </html>
