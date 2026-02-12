@@ -3,57 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nuestro Final</title>
+<title>Nuestro Final ❤️</title>
 
 <style>
-body{
-  margin:0;
-  overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  font-family:Georgia, serif;
-  color:white;
-  text-align:center;
-  background:black;
-}
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
 
-canvas{
-  position:absolute;
-  top:0;
-  left:0;
-}
+    body{
+        overflow:hidden;
+        background: radial-gradient(circle at 20% 30%, #1a0000, #000),
+                    radial-gradient(circle at 80% 70%, #330000, #000);
+        background-blend-mode: screen;
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-.contenido{
-  position:relative;
-  z-index:2;
-  padding:20px;
-}
+    canvas{
+        position:fixed;
+        top:0;
+        left:0;
+    }
 
-h1{
-  font-size:28px;
-  margin-bottom:10px;
-}
+    .contenido{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        text-align:center;
+        color:#ff2b2b;
+        z-index:10;
+        padding:20px;
+        width:90%;
+        max-width:600px;
+    }
 
-p{
-  font-size:18px;
-}
+    h1{
+        font-size: clamp(28px, 6vw, 48px);
+        text-shadow: 0 0 10px #ff0000;
+        animation: brillo 2s infinite alternate;
+    }
+
+    p{
+        margin-top:20px;
+        font-size: clamp(16px, 4vw, 22px);
+        opacity:0.9;
+    }
+
+    @keyframes brillo{
+        from { text-shadow: 0 0 8px #ff0000; }
+        to { text-shadow: 0 0 18px #ff3333; }
+    }
 </style>
 </head>
-
 <body>
 
 <canvas id="canvas"></canvas>
 
 <div class="contenido">
-  <h1>Jherex ❤️ Nikol</h1>
-  <p>Esta historia apenas comienza...</p>
+    <h1>Te amo ❤️</h1>
+    <p>Gracias por ser parte de nuestra historia.</p>
 </div>
-
-<audio autoplay loop>
-  <source src="a-thousand-years.mp3" type="audio/mpeg">
-</audio>
 
 <script>
 const canvas = document.getElementById("canvas");
@@ -62,96 +73,92 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+window.addEventListener("resize",()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initHeart();
+});
+
+let heartPoints = [];
 let particles = [];
-let pulse = 0;
+let progress = 0;
 
-class Particle{
-  constructor(x,y){
-    this.x = Math.random()*canvas.width;
-    this.y = Math.random()*canvas.height;
-    this.tx = x;
-    this.ty = y;
-    this.size = 2.5;
-  }
-
-  update(){
-    this.x += (this.tx - this.x)*0.05;
-    this.y += (this.ty - this.y)*0.05;
-  }
-
-  draw(){
-    ctx.beginPath();
-    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fillStyle = "#ff2e63";
-    ctx.shadowColor = "#ff2e63";
-    ctx.shadowBlur = 12 + Math.sin(pulse)*6;
-    ctx.fill();
-    ctx.shadowBlur = 0;
-  }
+function heartFunction(t){
+    return {
+        x: 16*Math.pow(Math.sin(t),3),
+        y: -(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))
+    };
 }
 
-function createHeart(){
-  particles = [];
-  const centerX = canvas.width/2;
-  const centerY = canvas.height/2 - 40;
-  const scale = canvas.width < 500 ? 8 : 12;
+function initHeart(){
+    heartPoints = [];
+    particles = [];
+    progress = 0;
 
-  for(let t=0; t<Math.PI*2; t+=0.02){
-    let x = 16 * Math.pow(Math.sin(t),3);
-    let y = -(13*Math.cos(t) - 5*Math.cos(2*t)
-             - 2*Math.cos(3*t) - Math.cos(4*t));
+    const scale = Math.min(canvas.width, canvas.height) / 40;
 
-    particles.push(new Particle(
-      centerX + x*scale,
-      centerY + y*scale
-    ));
-  }
+    for(let t=0; t<Math.PI*2; t+=0.05){
+        let pos = heartFunction(t);
+        heartPoints.push({
+            x: canvas.width/2 + pos.x * scale,
+            y: canvas.height/2 + pos.y * scale
+        });
+    }
+
+    heartPoints.forEach(point=>{
+        particles.push({
+            x: canvas.width/2,
+            y: canvas.height/2,
+            targetX: point.x,
+            targetY: point.y,
+            size: Math.random()*2 + 1,
+            alpha: 0
+        });
+    });
 }
 
-function drawBackground(){
-  const intensity = 0.6 + Math.sin(pulse)*0.05;
-
-  const gradient = ctx.createRadialGradient(
-    canvas.width/2,
-    canvas.height/2,
-    0,
-    canvas.width/2,
-    canvas.height/2,
-    canvas.width
-  );
-
-  gradient.addColorStop(0, `rgba(255,40,90,${intensity})`);
-  gradient.addColorStop(0.4, `rgba(150,0,50,${intensity})`);
-  gradient.addColorStop(0.7, `rgba(80,0,30,${intensity})`);
-  gradient.addColorStop(1, "black");
-
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+function drawGalaxyBackground(){
+    for(let i=0;i<3;i++){
+        ctx.beginPath();
+        ctx.arc(
+            Math.random()*canvas.width,
+            Math.random()*canvas.height,
+            Math.random()*1.5,
+            0, Math.PI*2
+        );
+        ctx.fillStyle = "rgba(255,80,80,0.3)";
+        ctx.fill();
+    }
 }
 
 function animate(){
-  pulse += 0.05;
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+    drawGalaxyBackground();
 
-  drawBackground();
+    particles.forEach(p=>{
+        if(progress<1){
+            p.x += (p.targetX - p.x)*0.02;
+            p.y += (p.targetY - p.y)*0.02;
+            p.alpha += 0.02;
+        }
 
-  particles.forEach(p=>{
-    p.update();
-    p.draw();
-  });
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fillStyle = `rgba(255,0,0,${p.alpha})`;
+        ctx.shadowColor = "#ff0000";
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+    });
 
-  requestAnimationFrame(animate);
+    progress += 0.01;
+    requestAnimationFrame(animate);
 }
 
-createHeart();
+initHeart();
 animate();
-
-window.addEventListener("resize",()=>{
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  createHeart();
-});
 </script>
 
 </body>
