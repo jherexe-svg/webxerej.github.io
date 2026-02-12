@@ -175,14 +175,14 @@ function mostrarBotones(){
 }
 
 function ir(){
-  window.location.href = "galeria.html";
+  window.location.href = "intro.html";
 }
 
 function moverNo(){
   intentos++;
   const btn = document.getElementById("no");
 
-  if(intentos < 3){
+  if(intentos < 4){
     const x = Math.random()*120 - 60;
     const y = Math.random()*60 - 30;
     btn.style.transform = `translate(${x}px,${y}px)`;
