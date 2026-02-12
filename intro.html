@@ -24,7 +24,7 @@ button{
   padding:12px 30px;
   border:none;
   border-radius:30px;
-  background:#ff2e63;
+  background:#ff3b6b;
   color:white;
   font-size:14px;
   cursor:pointer;
@@ -37,7 +37,7 @@ button{
 <body>
 
 <canvas id="canvas"></canvas>
-<button id="btn" onclick="irGaleria()">Comenzar 💫</button>
+<button id="btn" onclick="irGaleria()">Comenzar 💕</button>
 
 <audio id="musica" loop>
   <source src="those-eyes.mp3" type="audio/mpeg">
@@ -53,7 +53,6 @@ canvas.height = window.innerHeight;
 let particles = [];
 let stars = [];
 let textIndex = 0;
-let glowPulse = 0;
 
 const texts = [
   "Algunas historias.",
@@ -69,25 +68,20 @@ class Particle{
     this.y = Math.random()*canvas.height;
     this.tx = x;
     this.ty = y;
-    this.size = 3;
+    this.size = 2.2;
   }
 
   update(){
-    this.x += (this.tx - this.x)*0.08;
-    this.y += (this.ty - this.y)*0.08;
+    this.x += (this.tx - this.x)*0.06;
+    this.y += (this.ty - this.y)*0.06;
   }
 
   draw(){
-    const gradient = ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,10);
-    gradient.addColorStop(0,"#ff4ecd");
-    gradient.addColorStop(1,"#7a5cff");
-
     ctx.beginPath();
     ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fillStyle = gradient;
-
-    ctx.shadowColor = "#ff4ecd";
-    ctx.shadowBlur = 20 + Math.sin(glowPulse)*10;
+    ctx.fillStyle = "#ff5ca8"; 
+    ctx.shadowColor = "#ff5ca8";
+    ctx.shadowBlur = 8;  // brillo más suave
     ctx.fill();
     ctx.shadowBlur = 0;
   }
@@ -102,8 +96,8 @@ class Star{
   constructor(){
     this.x = Math.random()*canvas.width;
     this.y = Math.random()*canvas.height;
-    this.size = Math.random()*2;
-    this.speed = Math.random()*0.3;
+    this.size = Math.random()*1.5;
+    this.speed = Math.random()*0.15;
   }
 
   update(){
@@ -117,22 +111,22 @@ class Star{
   draw(){
     ctx.beginPath();
     ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fillStyle = "rgba(150,180,255,0.8)";
+    ctx.fillStyle = "rgba(180,180,255,0.6)";
     ctx.fill();
   }
 }
 
-for(let i=0;i<300;i++){
+// Menos estrellas = más fluido
+for(let i=0;i<120;i++){
   stars.push(new Star());
 }
 
-function drawNebula(){
+function drawBackground(){
   const gradient = ctx.createRadialGradient(
     canvas.width/2,canvas.height/2,0,
     canvas.width/2,canvas.height/2,canvas.width
   );
-  gradient.addColorStop(0,"rgba(80,0,120,0.6)");
-  gradient.addColorStop(0.5,"rgba(20,0,50,0.4)");
+  gradient.addColorStop(0,"rgba(60,0,90,0.5)");
   gradient.addColorStop(1,"black");
 
   ctx.fillStyle = gradient;
@@ -143,7 +137,7 @@ function createText(text){
   particles = [];
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  let fontSize = canvas.width < 500 ? 30 : 70;
+  let fontSize = canvas.width < 500 ? 30 : 65;
   ctx.fillStyle="white";
   ctx.font=`bold ${fontSize}px Georgia`;
   ctx.textAlign="center";
@@ -151,8 +145,9 @@ function createText(text){
 
   const data = ctx.getImageData(0,0,canvas.width,canvas.height).data;
 
-  for(let y=0;y<canvas.height;y+=3){
-    for(let x=0;x<canvas.width;x+=3){
+  // más separación = menos carga y más fluido
+  for(let y=0;y<canvas.height;y+=4){
+    for(let x=0;x<canvas.width;x+=4){
       const index = (y * canvas.width + x) * 4;
       if(data[index+3] > 150){
         particles.push(new Particle(x,y));
@@ -164,9 +159,7 @@ function createText(text){
 }
 
 function animate(){
-  glowPulse += 0.05;
-
-  drawNebula();
+  drawBackground();
 
   stars.forEach(s=>{
     s.update();
@@ -189,7 +182,10 @@ function nextText(){
     setTimeout(()=>{
       createText(texts[textIndex]);
       textIndex++;
-      setTimeout(nextText,4000);
+
+      // ahora dura más tiempo
+      setTimeout(nextText,6000);
+
     },1000);
 
   } else {
@@ -200,7 +196,7 @@ function nextText(){
 animate();
 createText(texts[textIndex]);
 textIndex++;
-setTimeout(nextText,4000);
+setTimeout(nextText,6000);
 
 window.addEventListener("resize",()=>{
   canvas.width = window.innerWidth;
