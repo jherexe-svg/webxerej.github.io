@@ -17,7 +17,7 @@ body{
   overflow:hidden;
 }
 
-/* Pétalos suaves */
+/* PÉTALOS */
 .petal{
   position:absolute;
   width:8px;
@@ -25,7 +25,7 @@ body{
   background:#f4b6c2;
   border-radius:50%;
   opacity:0.6;
-  animation:fall 8s linear infinite;
+  animation:fall linear infinite;
 }
 
 @keyframes fall{
@@ -33,20 +33,21 @@ body{
   100%{transform:translateY(110vh);}
 }
 
-/* Contenedor */
+/* CONTENEDOR */
 .container{
   position:relative;
   width:320px;
   text-align:center;
 }
 
-/* Sobre */
+/* SOBRE ROSADO */
 .envelope{
   width:320px;
   height:200px;
   background:#f4a9b7;
   position:relative;
   border-radius:8px;
+  z-index:1;
 }
 
 .envelope:before{
@@ -61,7 +62,7 @@ body{
   border-bottom:100px solid #f4a9b7;
 }
 
-/* Carta */
+/* CARTA BLANCA */
 .card{
   position:absolute;
   top:-80px;
@@ -72,6 +73,7 @@ body{
   border-radius:6px;
   box-shadow:0 10px 25px rgba(0,0,0,0.15);
   animation:float 3s ease-in-out infinite;
+  z-index:2;
 }
 
 @keyframes float{
@@ -84,8 +86,9 @@ body{
   font-size:14px;
 }
 
+/* CORAZÓN */
 .heart{
-  font-size:28px;
+  font-size:30px;
   cursor:pointer;
   transition:0.3s;
 }
@@ -94,6 +97,7 @@ body{
   transform:scale(1.2);
 }
 
+/* NOMBRES */
 .names{
   display:flex;
   justify-content:space-between;
@@ -101,7 +105,7 @@ body{
   margin-top:15px;
 }
 
-/* Botones */
+/* BOTONES */
 .buttons{
   margin-top:20px;
   display:flex;
@@ -133,7 +137,6 @@ button{
   color:#c91d34;
   position:relative;
 }
-
 </style>
 </head>
 
@@ -141,6 +144,7 @@ button{
 
 <div class="container">
 
+  <!-- CARTA -->
   <div class="card">
     <p>Te tengo una sorpresa.</p>
     <p>Para descubrirla<br>da click sobre el corazón</p>
@@ -158,6 +162,7 @@ button{
     </div>
   </div>
 
+  <!-- SOBRE -->
   <div class="envelope"></div>
 
 </div>
@@ -191,7 +196,7 @@ function moverNo(){
   }
 }
 
-/* Generar pétalos */
+/* Generar pétalos suaves */
 setInterval(()=>{
   const petal = document.createElement("div");
   petal.classList.add("petal");
