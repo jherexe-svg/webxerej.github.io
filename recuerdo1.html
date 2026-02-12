@@ -21,6 +21,7 @@ body{
     justify-content:center;
     align-items:center;
     height:100vh;
+    cursor:pointer;
 }
 
 canvas{
@@ -41,17 +42,18 @@ canvas{
 .texto-principal{
     font-size: clamp(18px,4vw,26px);
     line-height:1.6;
-    opacity:1;
     text-shadow:0 0 10px rgba(255,0,0,0.4);
+    opacity:0; /* oculto al inicio */
+    transition:1s ease;
 }
 </style>
 </head>
-<body>
+<body onclick="irRecuerdo2()">
 
 <canvas id="treeCanvas"></canvas>
 
 <div class="contenedor">
-    <div class="texto-principal">
+    <div class="texto-principal" id="texto">
         Desde aquel primer momento supe que algo especial comenzaba,
         como una chispa roja iluminando el destino que nos uniría.
     </div>
@@ -69,13 +71,11 @@ window.addEventListener("resize",()=>{
     canvas.height = window.innerHeight;
 });
 
-/* ================== ÁRBOL ================== */
+/* ====== ÁRBOL ====== */
 
-let branches = [];
-let leaves = [];
-let sparkles = [];
-let fallingLeaves = [];
-let formed = false;
+let branches=[];
+let leaves=[];
+let formed=false;
 
 class Branch{
     constructor(x,y,length,angle,width,depth){
@@ -99,13 +99,13 @@ class Branch{
         ctx.translate(this.x,this.y);
         ctx.rotate(this.angle);
 
-        let grad = ctx.createLinearGradient(0,0,0,-this.length);
+        let grad=ctx.createLinearGradient(0,0,0,-this.length);
         grad.addColorStop(0,"#4a0000");
         grad.addColorStop(0.5,"#8b0000");
         grad.addColorStop(1,"#ff2e63");
 
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = this.width;
+        ctx.strokeStyle=grad;
+        ctx.lineWidth=this.width;
         ctx.beginPath();
         ctx.moveTo(0,0);
         ctx.lineTo(0,-this.length*this.progress);
@@ -116,10 +116,10 @@ class Branch{
 }
 
 function createBranch(x,y,length,angle,width,depth){
-    let branch = new Branch(x,y,length,angle,width,depth);
+    let branch=new Branch(x,y,length,angle,width,depth);
     branches.push(branch);
 
-    if(depth > 0){
+    if(depth>0){
         setTimeout(()=>{
             let endX = x + Math.sin(angle)*length;
             let endY = y - Math.cos(angle)*length;
@@ -127,23 +127,25 @@ function createBranch(x,y,length,angle,width,depth){
             createBranch(endX,endY,length*0.7,angle-0.5,width*0.7,depth-1);
             createBranch(endX,endY,length*0.7,angle+0.5,width*0.7,depth-1);
         },600);
-    } else {
+    }else{
         leaves.push({x:x,y:y});
     }
 }
 
 function createTree(){
-    let baseX = canvas.width*0.15;
-    let baseY = canvas.height*0.9;
+    let baseX=canvas.width*0.15;
+    let baseY=canvas.height*0.9;
+
     createBranch(baseX,baseY,120,0,10,4);
 
+    // Cuando termina el árbol
     setTimeout(()=>{
         formed=true;
-        showTextWordByWord();
-    },3500);
+        mostrarTexto();
+    },4000);
 }
 
-/* ================== HOJAS CORAZÓN ================== */
+/* ====== HOJAS CORAZÓN ====== */
 
 function drawHeart(x,y,size,color){
     ctx.save();
@@ -158,29 +160,10 @@ function drawHeart(x,y,size,color){
     ctx.restore();
 }
 
-/* ================== ANIMACIÓN ================== */
+/* ====== ANIMACIÓN ====== */
 
 function animate(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    // partículas brillantes
-    if(Math.random() < 0.05){
-        sparkles.push({
-            x:Math.random()*canvas.width*0.4,
-            y:Math.random()*canvas.height,
-            size:Math.random()*2+1,
-            alpha:1
-        });
-    }
-
-    sparkles.forEach((s,i)=>{
-        ctx.beginPath();
-        ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
-        ctx.fillStyle=`rgba(255,80,80,${s.alpha})`;
-        ctx.fill();
-        s.alpha -= 0.02;
-        if(s.alpha <= 0) sparkles.splice(i,1);
-    });
 
     branches.forEach(b=>{
         b.update();
@@ -189,16 +172,6 @@ function animate(){
 
     leaves.forEach(l=>{
         drawHeart(l.x,l.y,5,"#ff4d6d");
-
-        if(Math.random()<0.005){
-            fallingLeaves.push({x:l.x,y:l.y,vy:1+Math.random()});
-        }
-    });
-
-    fallingLeaves.forEach((f,i)=>{
-        f.y += f.vy;
-        drawHeart(f.x,f.y,4,"#ff1744");
-        if(f.y > canvas.height) fallingLeaves.splice(i,1);
     });
 
     requestAnimationFrame(animate);
@@ -207,22 +180,29 @@ function animate(){
 createTree();
 animate();
 
-/* ================== TEXTO PALABRA POR PALABRA ================== */
+/* ====== TEXTO PALABRA POR PALABRA ====== */
 
-function showTextWordByWord(){
-    const element = document.querySelector(".texto-principal");
-    let words = element.innerText.split(" ");
+function mostrarTexto(){
+    const element=document.getElementById("texto");
+    let words=element.innerText.split(" ");
     element.innerHTML="";
-    let i=0;
+    element.style.opacity=1;
 
+    let i=0;
     let interval=setInterval(()=>{
-        if(i < words.length){
-            element.innerHTML += words[i] + " ";
+        if(i<words.length){
+            element.innerHTML+=words[i]+" ";
             i++;
-        } else {
+        }else{
             clearInterval(interval);
         }
     },300);
+}
+
+/* ====== CLICK PARA IR AL RECUERDO 2 ====== */
+
+function irRecuerdo2(){
+    window.location.href="recuerdo2.html";
 }
 </script>
 
