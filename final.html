@@ -3,162 +3,155 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nuestro Comienzo</title>
+<title>Nuestro Final</title>
 
 <style>
 body{
   margin:0;
-  background:linear-gradient(180deg,#e85a5a,#d94444);
-  font-family:'Georgia', serif;
+  overflow:hidden;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
-  overflow:hidden;
-  text-align:center;
+  font-family:Georgia, serif;
   color:white;
+  text-align:center;
+  background:black;
 }
 
-/* Contenedor */
-.container{
-  max-width:360px;
-  width:90%;
-  animation:fadeIn 2s ease;
-}
-
-/* Título */
-h1{
-  font-size:24px;
-  margin-bottom:25px;
-}
-
-/* Corazón */
-.heart{
-  font-size:70px;
-  animation:beat 1.2s infinite;
-}
-
-@keyframes beat{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.15);}
-}
-
-/* Iniciales */
-.initials{
-  margin-top:15px;
-  font-size:22px;
-  font-weight:bold;
-  letter-spacing:3px;
-  animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-  from{text-shadow:0 0 5px rgba(255,255,255,0.4);}
-  to{text-shadow:0 0 20px rgba(255,255,255,0.9);}
-}
-
-/* Texto final */
-.message{
-  margin-top:25px;
-  font-size:14px;
-  line-height:1.6;
-}
-
-/* Botón música */
-button{
-  margin-top:25px;
-  padding:10px 20px;
-  border:none;
-  border-radius:25px;
-  background:white;
-  color:#c91d34;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  transform:scale(1.05);
-}
-
-/* Animación entrada */
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(15px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* Pétalos */
-.petal{
+canvas{
   position:absolute;
-  width:8px;
-  height:8px;
-  background:#ffb6c1;
-  border-radius:50%;
-  opacity:0.7;
-  animation:fall linear infinite;
+  top:0;
+  left:0;
 }
 
-@keyframes fall{
-  0%{transform:translateY(-10vh);}
-  100%{transform:translateY(110vh);}
+.contenido{
+  position:relative;
+  z-index:2;
+  padding:20px;
+}
+
+h1{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:18px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<canvas id="canvas"></canvas>
 
-<h1>Confirmado oficialmente 💖</h1>
-
-<div class="heart">❤️</div>
-
-<div class="initials">
-N 💛 J
+<div class="contenido">
+  <h1>Jherex ❤️ Nikol</h1>
+  <p>Esta historia apenas comienza...</p>
 </div>
 
-<div class="message">
-Gracias por decir que sí. <br>
-No fue coincidencia. <br>
-No fue tarde. <br>
-Fue cuando tenía que ser. <br><br>
-Y esto… recién empieza.
-</div>
-
-<button onclick="activarMusica()">Activar música 🎵</button>
-
-</div>
-
-<audio id="musica" loop>
-  <source src="athousandyears.mp3" type="audio/mpeg">
+<audio autoplay loop>
+  <source src="a-thousand-years.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-function activarMusica(){
-  const audio = document.getElementById("musica");
-  audio.volume = 0;
-  audio.play();
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-  let vol = 0;
-  const fade = setInterval(()=>{
-    if(vol < 0.5){
-      vol += 0.02;
-      audio.volume = vol;
-    } else {
-      clearInterval(fade);
-    }
-  },200);
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+let pulse = 0;
+
+class Particle{
+  constructor(x,y){
+    this.x = Math.random()*canvas.width;
+    this.y = Math.random()*canvas.height;
+    this.tx = x;
+    this.ty = y;
+    this.size = 2.5;
+  }
+
+  update(){
+    this.x += (this.tx - this.x)*0.05;
+    this.y += (this.ty - this.y)*0.05;
+  }
+
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle = "#ff2e63";
+    ctx.shadowColor = "#ff2e63";
+    ctx.shadowBlur = 12 + Math.sin(pulse)*6;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
 }
 
-/* Pétalos suaves */
-setInterval(()=>{
-  const petal = document.createElement("div");
-  petal.classList.add("petal");
-  petal.style.left = Math.random()*100 + "vw";
-  petal.style.animationDuration = (6 + Math.random()*4) + "s";
-  document.body.appendChild(petal);
-  setTimeout(()=>petal.remove(),9000);
-},700);
+function createHeart(){
+  particles = [];
+  const centerX = canvas.width/2;
+  const centerY = canvas.height/2 - 40;
+  const scale = canvas.width < 500 ? 8 : 12;
+
+  for(let t=0; t<Math.PI*2; t+=0.02){
+    let x = 16 * Math.pow(Math.sin(t),3);
+    let y = -(13*Math.cos(t) - 5*Math.cos(2*t)
+             - 2*Math.cos(3*t) - Math.cos(4*t));
+
+    particles.push(new Particle(
+      centerX + x*scale,
+      centerY + y*scale
+    ));
+  }
+}
+
+function drawBackground(){
+  const intensity = 0.6 + Math.sin(pulse)*0.05;
+
+  const gradient = ctx.createRadialGradient(
+    canvas.width/2,
+    canvas.height/2,
+    0,
+    canvas.width/2,
+    canvas.height/2,
+    canvas.width
+  );
+
+  gradient.addColorStop(0, `rgba(255,40,90,${intensity})`);
+  gradient.addColorStop(0.4, `rgba(150,0,50,${intensity})`);
+  gradient.addColorStop(0.7, `rgba(80,0,30,${intensity})`);
+  gradient.addColorStop(1, "black");
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+}
+
+function animate(){
+  pulse += 0.05;
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  drawBackground();
+
+  particles.forEach(p=>{
+    p.update();
+    p.draw();
+  });
+
+  requestAnimationFrame(animate);
+}
+
+createHeart();
+animate();
+
+window.addEventListener("resize",()=>{
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  createHeart();
+});
 </script>
 
 </body>
