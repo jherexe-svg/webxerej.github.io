@@ -3,94 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Capítulo III</title>
+<title>La Gran Pregunta ❤️</title>
 
 <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
-  margin:0;
-  background:linear-gradient(#f4b9c6,#e4879c);
-  font-family:'Georgia', serif;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  text-align:center;
-  padding:20px;
-  box-sizing:border-box;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg,#f8cdda,#f5b6c4,#f8cdda);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
 }
 
-.container{
-  max-width:360px;
+.tarjeta{
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    border-radius:20px;
+    padding:30px 25px;
+    max-width:500px;
+    width:100%;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(150,0,0,0.2);
+    animation: fadeIn 1.5s ease;
 }
 
-.block{
-  opacity:0;
-  transform:translateY(10px);
-  transition:1.5s ease;
-  margin-bottom:15px;
-  line-height:1.6;
+.encabezado{
+    font-size:12px;
+    letter-spacing:1px;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:15px;
+    color:#a94442;
+    font-weight:bold;
 }
 
-.question{
-  margin-top:25px;
-  font-size:18px;
-  font-style:italic;
+.linea{
+    height:1px;
+    background:#d88;
+    margin:8px 0 20px 0;
+}
+
+h2{
+    color:#c62828;
+    font-size:26px;
+    margin-bottom:15px;
+}
+
+.texto{
+    font-size:16px;
+    line-height:1.6;
+    color:#5a2a2a;
+    margin-bottom:20px;
+}
+
+.gran-pregunta{
+    font-size:32px;
+    font-weight:bold;
+    color:#7b1e1e;
+    margin-top:15px;
+}
+
+.sanvalentin{
+    font-family: "Brush Script MT", cursive;
+    font-size:48px;
+    color:#d32f2f;
+    text-shadow:0 0 10px rgba(255,0,0,0.3);
+}
+
+.botones{
+    margin-top:25px;
 }
 
 button{
-  margin-top:15px;
-  padding:10px 20px;
-  border:none;
-  border-radius:20px;
-  background:#c91d34;
-  color:white;
-  cursor:pointer;
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:30px;
+    border:2px solid #d32f2f;
+    background:transparent;
+    color:#c62828;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#d32f2f;
+    color:white;
+    transform:scale(1.05);
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="tarjeta">
 
-<div class="block">Cuando estaba por culminar la universidad, por fin comenzamos a conversar.</div>
+    <div class="encabezado">
+        <span>EDICIÓN ESPECIAL</span>
+        <span>14 DE FEBRERO 2026</span>
+    </div>
 
-<div class="block">La excusa fue ayudarte con Datamine.</div>
+    <div class="linea"></div>
 
-<div class="block">Pero la verdad… solo necesitaba una razón para acercarme a ti.</div>
+    <h2>La gran pregunta</h2>
 
-<div class="block">Y desde ahí, algo cambió.</div>
+    <div class="texto">
+        Después de analizar los hechos, recopilar datos y comprobar la química innegable entre nosotros… <br><br>
+        Así que ahora sí… <br><br>
+        con el corazón en la mano <br>
+        y una sonrisa nerviosa:
+    </div>
 
-<div class="block">No fue casualidad. No fue coincidencia. Fue cuando tenía que ser.</div>
+    <div class="gran-pregunta">
+        ¿Quieres ser mi
+    </div>
 
-<div class="block question">¿Quieres estar a mi lado?</div>
+    <div class="sanvalentin">
+        San Valentín?
+    </div>
 
-<button onclick="ir()">Sí 💕</button>
+    <div class="botones">
+        <button onclick="respuestaSi()">OBVIO, LO ESTABA ESPERANDO</button>
+        <button onclick="respuestaSi()">SÍ, POR SUPUESTOOO</button>
+    </div>
 
 </div>
 
-<audio id="musica" loop>
-<source src="musica-recuerdos.mp3" type="audio/mpeg">
-</audio>
-
 <script>
-const bloques=document.querySelectorAll(".block");
-
-bloques.forEach((b,i)=>{
-  setTimeout(()=>{
-    b.style.opacity=1;
-    b.style.transform="translateY(0)";
-  },1500*i);
-});
-
-document.addEventListener("click",function(){
-  const audio=document.getElementById("musica");
-  audio.volume=0.4;
-  audio.play();
-},{once:true});
-
-function ir(){
-  window.location.href="final.html";
+function respuestaSi(){
+    window.location.href="final.html";
 }
 </script>
 
