@@ -3,73 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Second Chapter 💖</title>
+<title>Capítulo II</title>
 
 <style>
 body{
   margin:0;
-  background:#f4c6cf;
   font-family: 'Georgia', serif;
-  color:#a3162a;
+  background: linear-gradient(180deg,#f9d5dc,#f4b9c6);
+  display:flex;
+  justify-content:center;
+  color:#6e1a25;
+  overflow-x:hidden;
 }
 
 .container{
   max-width:500px;
-  margin:auto;
-  padding:20px;
+  width:100%;
+  padding:25px;
+  text-align:center;
 }
 
-/* Encabezado */
 .top{
   display:flex;
   justify-content:space-between;
   font-size:11px;
-  border-bottom:1px solid #a3162a;
-  padding-bottom:5px;
+  border-bottom:1px solid #6e1a25;
+  padding-bottom:6px;
+  margin-bottom:15px;
 }
 
-h1{
-  text-align:center;
-  font-size:34px;
-  margin:20px 0 5px 0;
+.title{
+  font-size:30px;
+  color:#c61c32;
+  margin:20px 0;
+  animation: fadeIn 2s ease;
 }
 
-.subtitle{
-  text-align:center;
-  font-style:italic;
-  font-size:20px;
-  margin-bottom:20px;
-}
-
-/* Grid estilo revista */
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:15px;
 }
 
-.box{
-  background:#ffdbe3;
-  padding:15px;
-  min-height:120px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-size:14px;
-  border:1px solid #a3162a;
+/* CARDS */
+.card{
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.08);
+  transition:0.4s;
+  position:relative;
+  opacity:0.6;
 }
 
-.heart{
-  font-size:30px;
+.card.unlocked{
+  opacity:1;
+  animation: appear 0.8s ease;
 }
 
-/* Sección inferior */
-.footer-title{
-  text-align:center;
-  margin-top:25px;
-  font-weight:bold;
-  font-size:18px;
+.card.locked{
+  pointer-events:none;
+  filter:blur(2px);
+}
+
+.number{
+  font-size:22px;
+  color:#c61c32;
+  margin-bottom:10px;
+}
+
+.hidden-text{
+  max-height:0;
+  overflow:hidden;
+  transition:0.6s ease;
+}
+
+.card.active .hidden-text{
+  max-height:400px;
+}
+
+button{
+  margin-top:10px;
+  padding:7px 14px;
+  border:none;
+  background:#c61c32;
+  color:white;
+  border-radius:20px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#a91528;
+}
+
+/* Animaciones */
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes appear{
+  from{opacity:0; transform:scale(0.95);}
+  to{opacity:1; transform:scale(1);}
+}
+
+/* Responsive */
+@media(max-width:480px){
+  .title{font-size:26px;}
 }
 </style>
 </head>
@@ -78,39 +120,81 @@ h1{
 
 <div class="container">
 
-  <div class="top">
-    <span>EDICIÓN ESPECIAL</span>
-    <span>Febrero 2026 - Nikol Orellana</span>
+<div class="top">
+  <span>EDICIÓN ESPECIAL</span>
+  <span>Febrero 2026 - Nikol Orellana</span>
+</div>
+
+<div class="title">🧩 CAPÍTULO II — El tiempo que esperaba</div>
+
+<div class="grid">
+
+  <!-- CARD 1 -->
+  <div class="card unlocked" id="card1">
+    <div class="number">I</div>
+    <div class="hidden-text">
+Llegaste a octavo ciclo,
+y fue Fabiola quien, sin saberlo, acercó nuestros caminos.
+
+Desde noveno yo quería hablarte.
+Varias veces pensé en hacerlo.
+    </div>
+    <button onclick="openCard(1)">Leer</button>
   </div>
 
-  <h1>02 Momentos</h1>
-  <div class="subtitle">Que cambiaron la historia</div>
-
-  <div class="grid">
-    <div class="box heart">❤️</div>
-    <div class="box">
-      Desde noveno yo quería hablarte…
-      pero siempre faltaba el momento.
+  <!-- CARD 2 -->
+  <div class="card locked" id="card2">
+    <div class="number">II</div>
+    <div class="hidden-text">
+Pero siempre faltaba algo:
+el momento, la señal, el valor exacto.
     </div>
-
-    <div class="box">
-      Varias veces pensé en hacerlo,
-      pero algo me detenía.
-    </div>
-    <div class="box heart">❤️</div>
-
-    <div class="box">
-      Tal vez no era miedo,
-      tal vez solo no era el tiempo correcto.
-    </div>
-    <div class="box heart">❤️</div>
+    <button onclick="openCard(2)">Leer</button>
   </div>
 
-  <div class="footer-title">
-    Pieza 2 de 3 🧩
+  <!-- CARD 3 -->
+  <div class="card locked" id="card3">
+    <div class="number">III</div>
+    <div class="hidden-text">
+Y mientras el tiempo avanzaba,
+yo seguía con esa sensación guardada,
+como una conversación pendiente
+que no quería desaparecer.
+    </div>
+    <button onclick="openCard(3)">Leer</button>
+  </div>
+
+  <!-- CARD 4 -->
+  <div class="card locked" id="card4">
+    <div class="number">IV</div>
+    <div class="hidden-text">
+Hay historias que empiezan sin ruido,
+pero se quedan en el corazón mucho tiempo.
+
+La nuestra fue una de ellas.
+    </div>
+    <button onclick="openCard(4)">Leer</button>
   </div>
 
 </div>
+
+</div>
+
+<script>
+function openCard(num){
+
+  const current = document.getElementById("card"+num);
+
+  current.classList.add("active");
+
+  // desbloquear siguiente
+  const next = document.getElementById("card"+(num+1));
+  if(next){
+    next.classList.remove("locked");
+    next.classList.add("unlocked");
+  }
+}
+</script>
 
 </body>
 </html>
