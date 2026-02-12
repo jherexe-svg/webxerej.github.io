@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>San Valentín ❤️</title>
+<title>Nuestro Final ❤️</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
     overflow:hidden;
     font-family:Georgia, serif;
-    display:flex;
-    justify-content:center;
-    align-items:center;
     height:100vh;
-    background:#c0392b;
 }
 
 canvas{
@@ -26,26 +26,47 @@ canvas{
 
 .contenido{
     position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
     text-align:center;
-    color:#b22222;
     z-index:10;
-    width:80%;
-    max-width:420px;
+    width:85%;
+    max-width:450px;
     opacity:0;
     transition:1.5s ease;
 }
 
 h1{
-    font-size:26px;
-    margin-bottom:10px;
+    font-size: clamp(28px,6vw,46px);
+    margin-bottom:15px;
+
+    background: linear-gradient(45deg, #ff1744, #ff4d6d, #ff8fa3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: brillo 3s infinite alternate;
 }
 
 p{
-    font-size:18px;
-    line-height:1.4;
+    font-size: clamp(16px,4vw,20px);
+    line-height:1.5;
+    color:#ffe6ea;
+}
+
+@keyframes brillo{
+    from{
+        text-shadow: 0 0 10px rgba(255,0,0,0.4),
+                     0 0 20px rgba(255,50,80,0.3);
+    }
+    to{
+        text-shadow: 0 0 20px rgba(255,0,0,0.8),
+                     0 0 40px rgba(255,80,120,0.6);
+    }
 }
 </style>
 </head>
+
 <body>
 
 <canvas id="canvas"></canvas>
@@ -53,16 +74,15 @@ p{
 <div class="contenido" id="contenido">
     <h1>Eres mi San Valentín ❤️</h1>
     <p>
-    Gracias por decir que sí.<br>
-    Prepárate para un día bonito,<br>
-    sonrisas inevitables<br>
-    y recuerdos que se van a quedar.
+        Gracias por ser parte de esta historia.<br>
+        Lo mejor apenas comienza.
     </p>
 </div>
 
 <script>
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -104,7 +124,8 @@ function initHeart(){
     }
 }
 
-for(let i=0;i<40;i++){
+/* Partículas de fondo */
+for(let i=0;i<50;i++){
     bgParticles.push({
         x:Math.random()*canvas.width,
         y:Math.random()*canvas.height,
@@ -117,17 +138,17 @@ function drawDynamicBackground(){
     let time=Date.now()*0.0005;
 
     let gradient=ctx.createRadialGradient(
-        canvas.width/2+Math.sin(time)*100,
-        canvas.height/2+Math.cos(time)*100,
+        canvas.width/2+Math.sin(time)*150,
+        canvas.height/2+Math.cos(time)*150,
         0,
         canvas.width/2,
         canvas.height/2,
         canvas.width
     );
 
-    gradient.addColorStop(0,"#ff4d4d");
+    gradient.addColorStop(0,"#ff4d6d");
     gradient.addColorStop(0.4,"#d62828");
-    gradient.addColorStop(1,"#7f0000");
+    gradient.addColorStop(1,"#3b0000");
 
     ctx.fillStyle=gradient;
     ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -157,6 +178,7 @@ function animate(){
     if(formed) beatTime+=0.15;
 
     let beatScale=1;
+
     if(formed){
         let beat=Math.sin(beatTime);
         beatScale=1+(beat>0?beat*0.12:beat*0.05); // doble latido natural
@@ -182,7 +204,7 @@ function animate(){
         ctx.arc(drawX,drawY,2.5,0,Math.PI*2);
         ctx.fillStyle=`rgba(255,255,255,${p.alpha})`;
         ctx.shadowColor="white";
-        ctx.shadowBlur=10;
+        ctx.shadowBlur=12;
         ctx.fill();
         ctx.shadowBlur=0;
     });
