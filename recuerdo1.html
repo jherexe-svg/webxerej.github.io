@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine Edition 💌</title>
+<title>First San Valentin 💌</title>
 
 <style>
 body{
   margin:0;
-  background:#f7c9d4;
-  font-family: Arial, sans-serif;
-  color:#8b1e2d;
+  background:#f4c6cf;
+  font-family:'Georgia', serif;
+  color:#a3162a;
 }
 
 .container{
@@ -20,66 +20,56 @@ body{
 }
 
 /* Encabezado */
-.header{
+.top{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  border-bottom:1px solid #a3162a;
+  padding-bottom:5px;
+}
+
+h1{
   text-align:center;
-  border-bottom:2px solid #8b1e2d;
-  padding-bottom:10px;
+  font-size:36px;
+  margin:25px 0 5px 0;
 }
 
-.header h1{
-  font-size:28px;
-  margin:5px 0;
-}
-
-/* Título */
-.main-title{
+.subtitle{
   text-align:center;
-  margin:30px 0;
+  font-style:italic;
+  font-size:20px;
+  margin-bottom:25px;
 }
 
-.main-title h2{
-  font-size:22px;
-  margin:0;
+/* Grid estilo revista */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-.script{
-  font-size:34px;
-  font-weight:bold;
-}
-
-/* Carta */
-.carta{
-  background:#fff0f3;
+.box{
+  background:#ffdbe3;
   padding:15px;
-  border-radius:10px;
-  margin-bottom:20px;
-  font-size:15px;
-  line-height:1.6;
-  color:#5a0f1a;
-}
-
-/* Imagen */
-.imagen{
+  min-height:120px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
+  font-size:14px;
+  border:1px solid #a3162a;
 }
 
-.imagen img{
-  width:100%;
-  border:5px solid #8b1e2d;
-  border-radius:8px;
+.heart{
+  font-size:30px;
 }
 
-/* Botón */
-.boton{
-  display:block;
-  margin:20px auto;
-  padding:12px;
+/* Pie */
+.footer{
   text-align:center;
-  background:#8b1e2d;
-  color:white;
-  text-decoration:none;
-  border-radius:25px;
+  margin-top:25px;
   font-weight:bold;
+  font-size:18px;
 }
 </style>
 </head>
@@ -88,31 +78,40 @@ body{
 
 <div class="container">
 
-  <div class="header">
-    <h1>Valentine Edition</h1>
-    <p>EDICIÓN ESPECIAL - FEBRERO 2026</p>
+  <div class="top">
+    <span>First San Valentin</span>
+    <span>Febrero 2026 - Nikol Orellana</span>
   </div>
 
-  <div class="main-title">
-    <h2>Will You Be My</h2>
-    <div class="script">Valentine, Nikol? ❤️</div>
+  <h1>01 El Inicio</h1>
+  <div class="subtitle">Donde todo comenzó…</div>
+
+  <div class="grid">
+    <div class="box heart">❤️</div>
+    <div class="box">
+      Nos conocimos en la universidad.
+    </div>
+
+    <div class="box">
+      Yo te miraba en silencio,
+      adelantando cursos en mi salón.
+    </div>
+    <div class="box heart">❤️</div>
+
+    <div class="box">
+      Eras constante,
+      enfocada…
+      diferente.
+    </div>
+    <div class="box">
+      Y aunque no cruzábamos palabras,
+      ya llamabas mi atención.
+    </div>
   </div>
 
-  <div class="carta">
-    <strong>Diario de amor:</strong><br><br>
-    Desde que nuestros caminos se cruzaron,
-    supe que quería vivir cada momento contigo.
-    <br><br>
-    Mi corazón encontró en ti su lugar favorito.
-    Quiero un San Valentín lleno de amor,
-    risas sinceras y recuerdos eternos.
+  <div class="footer">
+    Pieza 1 de 3 🧩
   </div>
-
-  <div class="imagen">
-    <img src="foto1.jpg" alt="Nuestro recuerdo">
-  </div>
-
-  <a href="final.html" class="boton">Aceptar la misión 💖</a>
 
 </div>
 
