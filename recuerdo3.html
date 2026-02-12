@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La gran pregunta</title>
+<title>Capítulo III</title>
 
 <style>
 body{
   margin:0;
-  background:linear-gradient(#f7c9d3,#f3b6c4);
-  font-family: 'Georgia', serif;
-  color:#8b1e2d;
+  background:linear-gradient(#f8cdd6,#f3b6c4);
+  font-family:'Georgia', serif;
+  color:#7a1c28;
   display:flex;
   justify-content:center;
 }
@@ -18,46 +18,50 @@ body{
 .container{
   max-width:500px;
   width:100%;
-  padding:20px;
+  padding:25px;
   text-align:center;
 }
 
-/* Encabezado superior */
+/* Encabezado estilo revista */
 .top{
   display:flex;
   justify-content:space-between;
   font-size:11px;
-  border-bottom:1px solid #8b1e2d;
-  padding-bottom:5px;
+  border-bottom:1px solid #7a1c28;
+  padding-bottom:6px;
+  margin-bottom:20px;
+  letter-spacing:1px;
+}
+
+.chapter{
+  font-size:14px;
+  letter-spacing:2px;
   margin-bottom:15px;
 }
 
-h1{
-  font-size:26px;
-  margin:15px 0;
-}
-
-.text{
+.story{
   font-size:16px;
-  line-height:1.6;
-  margin-bottom:20px;
+  line-height:1.7;
+  white-space:pre-line;
+  margin-bottom:30px;
 }
 
-.big-question{
-  font-size:28px;
-  font-weight:bold;
-  margin-top:20px;
+.question{
+  font-size:20px;
+  margin-top:15px;
 }
 
-.big-question span{
-  font-size:42px;
+.question span{
+  display:block;
+  font-size:32px;
   font-style:italic;
   color:#c91d34;
+  margin-top:10px;
 }
 
 /* Botones */
 .buttons{
-  margin-top:30px;
+  margin-top:25px;
   display:flex;
   flex-direction:column;
   gap:15px;
@@ -82,8 +86,11 @@ button:hover{
 }
 
 @media(max-width:480px){
-  .big-question span{
-    font-size:36px;
+  .story{
+    font-size:15px;
+  }
+  .question span{
+    font-size:28px;
   }
 }
 </style>
@@ -98,26 +105,50 @@ button:hover{
     <span>Febrero 2026 - Nikol Orellana</span>
   </div>
 
-  <h1>La gran pregunta</h1>
-
-  <div class="text">
-    Después de analizar los hechos, recopilar datos  
-    y comprobar la química innegable entre nosotros…  
-
-    Así que ahora sí…  
-
-    con el corazón en la mano  
-    y una sonrisa nerviosa:
+  <div class="chapter">
+    🧩 CAPÍTULO III — El verdadero comienzo
   </div>
 
-  <div class="big-question">
-    ¿Quieres ser mi  
-    <br><span>San Valentín?</span>
+  <div class="story">
+Cuando estaba por culminar la universidad,
+por fin comenzamos a conversar.
+
+La excusa fue ayudarte con Datamine.
+
+Pero la verdad…
+es que solo necesitaba una razón para acercarme a ti.
+
+Y desde ahí, algo cambió.
+
+Las conversaciones dejaron de ser casuales.
+El interés dejó de ser silencioso.
+Y lo que empezó como una ayuda,
+se convirtió en algo que hoy significa mucho más.
+
+Hoy 14 no estoy contigo,
+y me pesa no poder estar ahí.
+
+Pero quiero que sepas algo claro, sin rodeos:
+
+No fue casualidad.
+No fue coincidencia.
+Y no fue tarde.
+
+Fue cuando tenía que ser.
+
+Y ahora que estamos aquí…
+ya no quiero quedarme con lo que pudo haber sido.
+
+Quiero construir lo que puede ser.
+  </div>
+
+  <div class="question">
+    <span>¿Quieres estar a mi lado?</span>
   </div>
 
   <div class="buttons">
-    <button onclick="aceptar()">OBVIO, LO ESTABA ESPERANDO</button>
-    <button onclick="aceptar()">SÍ, POR SUPUESTOOO</button>
+    <button onclick="aceptar()">Sí, quiero 💕</button>
+    <button onclick="aceptar()">Siempre contigo ❤️</button>
   </div>
 
 </div>
