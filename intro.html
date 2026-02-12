@@ -24,7 +24,7 @@ button{
   padding:12px 30px;
   border:none;
   border-radius:30px;
-  background:linear-gradient(45deg,#ff4ecd,#7a5cff);
+  background:linear-gradient(45deg,#ff2e63,#8b0000);
   color:white;
   font-size:14px;
   cursor:pointer;
@@ -37,7 +37,7 @@ button{
 <body>
 
 <canvas id="canvas"></canvas>
-<button id="btn" onclick="irGaleria()">Comenzar 💜</button>
+<button id="btn" onclick="irGaleria()">Comenzar ❤️</button>
 
 <audio id="musica" loop>
   <source src="those-eyes.mp3" type="audio/mpeg">
@@ -89,11 +89,11 @@ class Particle{
     ctx.fillStyle = this.color;
 
     if(this.special){
-      ctx.shadowColor = "#ffffff";
-      ctx.shadowBlur = 15 + Math.sin(pulse)*8;
+      ctx.shadowColor = "#ff4d4d";
+      ctx.shadowBlur = 18 + Math.sin(pulse)*8;
     } else {
       ctx.shadowColor = this.color;
-      ctx.shadowBlur = 6;
+      ctx.shadowBlur = 8;
     }
 
     ctx.fill();
@@ -111,8 +111,8 @@ class Star{
     this.x = Math.random()*canvas.width;
     this.y = Math.random()*canvas.height;
     this.size = Math.random()*1.5;
-    this.speed = Math.random()*0.15;
-    this.opacity = Math.random()*0.8;
+    this.speed = Math.random()*0.12;
+    this.opacity = Math.random()*0.7;
   }
 
   update(){
@@ -126,12 +126,12 @@ class Star{
   draw(){
     ctx.beginPath();
     ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fillStyle = `rgba(200,200,255,${this.opacity})`;
+    ctx.fillStyle = `rgba(255,80,80,${this.opacity})`;
     ctx.fill();
   }
 }
 
-for(let i=0;i<140;i++){
+for(let i=0;i<130;i++){
   stars.push(new Star());
 }
 
@@ -141,9 +141,9 @@ function drawBackground(){
     canvas.width*0.5, canvas.height*0.5, canvas.width
   );
 
-  gradient.addColorStop(0,"rgba(90,0,130,0.6)");
-  gradient.addColorStop(0.4,"rgba(40,0,90,0.5)");
-  gradient.addColorStop(0.7,"rgba(0,30,80,0.5)");
+  gradient.addColorStop(0,"rgba(120,0,0,0.6)");
+  gradient.addColorStop(0.4,"rgba(60,0,0,0.6)");
+  gradient.addColorStop(0.7,"rgba(30,0,0,0.7)");
   gradient.addColorStop(1,"black");
 
   ctx.fillStyle = gradient;
@@ -196,7 +196,7 @@ function createText(text){
     for(let x=0;x<canvas.width;x+=4){
       const index = (y * canvas.width + x) * 4;
       if(data[index+3] > 150){
-        let color = special ? "#ffd6ff" : "#c77dff";
+        let color = special ? "#ff9999" : "#ff2e63";
         particles.push(new Particle(x,y,color,special));
       }
     }
