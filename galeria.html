@@ -1,52 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nuestros Recuerdos</title>
+<title>Galería</title>
 
 <style>
 body{
   margin:0;
-  background:#111;
-  color:white;
-  font-family:'Segoe UI';
+  font-family:'Georgia', serif;
+  background:linear-gradient(#ffdce6,#ffc2d1);
   text-align:center;
+  overflow-x:hidden;
 }
 
 h1{
   margin-top:30px;
+  font-size:22px;
+  letter-spacing:2px;
 }
 
-.galeria{
-  display:flex;
-  flex-direction:column;
-  gap:25px;
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:15px;
   padding:20px;
+  max-width:900px;
+  margin:auto;
 }
 
-.galeria img{
+.gallery img{
   width:100%;
-  border-radius:20px;
-  cursor:pointer;
-  transition:0.5s;
+  height:180px;
+  object-fit:cover;
+  border-radius:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  transition:transform 0.4s ease;
 }
 
-.galeria img:hover{
+.gallery img:hover{
   transform:scale(1.05);
+}
+
+button{
+  margin:30px 0 40px 0;
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  background:#c91d34;
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#a31528;
+}
+
+.fade{
+  animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(15px);}
+  to{opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
 
-<body>
+<body class="fade">
 
-<h1>Nuestros Momentos ✨</h1>
+<h1>Nuestros Recuerdos 📸</h1>
 
-<div class="galeria">
-  <a href="recuerdo1.html"><img src="foto1.jpg"></a>
-  <a href="recuerdo2.html"><img src="foto2.jpg"></a>
-  <a href="recuerdo3.html"><img src="foto3.jpg"></a>
+<div class="gallery">
+  <img src="foto1.jpg" alt="Recuerdo 1">
+  <img src="foto2.jpg" alt="Recuerdo 2">
+  <img src="foto3.jpg" alt="Recuerdo 3">
+  <img src="foto4.jpg" alt="Recuerdo 4">
+  <img src="foto5.jpg" alt="Recuerdo 5">
+  <img src="foto6.jpg" alt="Recuerdo 6">
 </div>
+
+<button onclick="irRecuerdos()">Continuar 💌</button>
+
+<audio id="musica" loop>
+  <source src="those-eyes.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.addEventListener("click", function(){
+  const audio = document.getElementById("musica");
+  audio.volume = 0.8; // más fuerte en galería
+  audio.play();
+}, {once:true});
+
+function irRecuerdos(){
+  window.location.href="recuerdo1.html";
+}
+</script>
 
 </body>
 </html>
