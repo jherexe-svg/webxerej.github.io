@@ -1,71 +1,200 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Un Recuerdo 💕</title>
+<title>Capítulo II</title>
 
 <style>
 body{
   margin:0;
-  overflow:hidden;
-  font-family:'Segoe UI';
+  font-family: 'Georgia', serif;
+  background: linear-gradient(180deg,#f9d5dc,#f4b9c6);
+  display:flex;
+  justify-content:center;
+  color:#6e1a25;
+  overflow-x:hidden;
 }
 
-.fondo{
-  position:fixed;
+.container{
+  max-width:500px;
   width:100%;
-  height:100%;
-  background:url('foto2.jpg') center/cover no-repeat;
-  filter:brightness(40%);
-}
-
-.texto{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  color:white;
+  padding:25px;
   text-align:center;
-  width:80%;
-  font-size:20px;
-  animation:fade 3s ease;
 }
 
-@keyframes fade{
-  from{opacity:0; transform:translate(-50%,-60%);}
-  to{opacity:1; transform:translate(-50%,-50%);}
+.top{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  border-bottom:1px solid #6e1a25;
+  padding-bottom:6px;
+  margin-bottom:15px;
 }
 
-.boton{
-  position:absolute;
-  bottom:40px;
-  left:50%;
-  transform:translateX(-50%);
-  padding:10px 25px;
+.title{
+  font-size:30px;
+  color:#c61c32;
+  margin:20px 0;
+  animation: fadeIn 2s ease;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+/* CARDS */
+.card{
   background:white;
-  color:black;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.08);
+  transition:0.4s;
+  position:relative;
+  opacity:0.6;
+}
+
+.card.unlocked{
+  opacity:1;
+  animation: appear 0.8s ease;
+}
+
+.card.locked{
+  pointer-events:none;
+  filter:blur(2px);
+}
+
+.number{
+  font-size:22px;
+  color:#c61c32;
+  margin-bottom:10px;
+}
+
+.hidden-text{
+  max-height:0;
+  overflow:hidden;
+  transition:0.6s ease;
+}
+
+.card.active .hidden-text{
+  max-height:400px;
+}
+
+button{
+  margin-top:10px;
+  padding:7px 14px;
+  border:none;
+  background:#c61c32;
+  color:white;
   border-radius:20px;
-  text-decoration:none;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#a91528;
+}
+
+/* Animaciones */
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes appear{
+  from{opacity:0; transform:scale(0.95);}
+  to{opacity:1; transform:scale(1);}
+}
+
+/* Responsive */
+@media(max-width:480px){
+  .title{font-size:26px;}
 }
 </style>
 </head>
 
-<body onclick="document.getElementById('musica').play()">
+<body>
 
-<div class="fondo"></div>
+<div class="container">
 
-<div class="texto">
-  Ese día fue uno de mis favoritos…
-  <br><br>
-  Porque estaba contigo ❤️
+<div class="top">
+  <span>EDICIÓN ESPECIAL</span>
+  <span>Febrero 2026 - Nikol Orellana</span>
 </div>
 
-<a href="final.html" class="boton">Continuar 💖</a>
+<div class="title">🧩 CAPÍTULO II — El tiempo que esperaba</div>
 
-<audio id="musica" loop>
-  <source src="those-eyes.mp3" type="audio/mpeg">
-</audio>
+<div class="grid">
+
+  <!-- CARD 1 -->
+  <div class="card unlocked" id="card1">
+    <div class="number">I</div>
+    <div class="hidden-text">
+Llegaste a octavo ciclo,
+y fue Fabiola quien, sin saberlo, acercó nuestros caminos.
+
+Desde noveno yo quería hablarte.
+Varias veces pensé en hacerlo.
+    </div>
+    <button onclick="openCard(1)">Leer</button>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card locked" id="card2">
+    <div class="number">II</div>
+    <div class="hidden-text">
+Pero siempre faltaba algo:
+el momento, la señal, el valor exacto.
+    </div>
+    <button onclick="openCard(2)">Leer</button>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card locked" id="card3">
+    <div class="number">III</div>
+    <div class="hidden-text">
+Y mientras el tiempo avanzaba,
+yo seguía con esa sensación guardada,
+como una conversación pendiente
+que no quería desaparecer.
+    </div>
+    <button onclick="openCard(3)">Leer</button>
+  </div>
+
+  <!-- CARD 4 -->
+  <div class="card locked" id="card4">
+    <div class="number">IV</div>
+    <div class="hidden-text">
+Hay historias que empiezan sin ruido,
+pero se quedan en el corazón mucho tiempo.
+
+La nuestra fue una de ellas.
+    </div>
+    <button onclick="openCard(4)">Leer</button>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+function openCard(num){
+
+  const current = document.getElementById("card"+num);
+
+  current.classList.add("active");
+
+  // desbloquear siguiente
+  const next = document.getElementById("card"+(num+1));
+  if(next){
+    next.classList.remove("locked");
+    next.classList.add("unlocked");
+  }
+}
+</script>
 
 </body>
 </html>

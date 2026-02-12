@@ -1,71 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Un Recuerdo 💕</title>
+<title>Capítulo III</title>
 
 <style>
 body{
   margin:0;
-  overflow:hidden;
-  font-family:'Segoe UI';
+  background:linear-gradient(#f8cdd6,#f3b6c4);
+  font-family:'Georgia', serif;
+  color:#7a1c28;
+  display:flex;
+  justify-content:center;
 }
 
-.fondo{
-  position:fixed;
+.container{
+  max-width:500px;
   width:100%;
-  height:100%;
-  background:url('foto3.jpg') center/cover no-repeat;
-  filter:brightness(40%);
-}
-
-.texto{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  color:white;
+  padding:25px;
   text-align:center;
-  width:80%;
+}
+
+/* Encabezado estilo revista */
+.top{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  border-bottom:1px solid #7a1c28;
+  padding-bottom:6px;
+  margin-bottom:20px;
+  letter-spacing:1px;
+}
+
+.chapter{
+  font-size:14px;
+  letter-spacing:2px;
+  margin-bottom:15px;
+}
+
+.story{
+  font-size:16px;
+  line-height:1.7;
+  white-space:pre-line;
+  margin-bottom:30px;
+}
+
+.question{
   font-size:20px;
-  animation:fade 3s ease;
+  margin-top:15px;
 }
 
-@keyframes fade{
-  from{opacity:0; transform:translate(-50%,-60%);}
-  to{opacity:1; transform:translate(-50%,-50%);}
+.question span{
+  display:block;
+  font-size:32px;
+  font-style:italic;
+  color:#c91d34;
+  margin-top:10px;
 }
 
-.boton{
-  position:absolute;
-  bottom:40px;
-  left:50%;
-  transform:translateX(-50%);
-  padding:10px 25px;
+/* Botones */
+.buttons{
+  margin-top:25px;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+button{
+  padding:12px;
+  font-size:14px;
+  border:2px solid #c91d34;
+  border-radius:25px;
   background:white;
-  color:black;
-  border-radius:20px;
-  text-decoration:none;
+  color:#c91d34;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#c91d34;
+  color:white;
+  transform:scale(1.05);
+}
+
+@media(max-width:480px){
+  .story{
+    font-size:15px;
+  }
+  .question span{
+    font-size:28px;
+  }
 }
 </style>
 </head>
 
-<body onclick="document.getElementById('musica').play()">
+<body>
 
-<div class="fondo"></div>
+<div class="container">
 
-<div class="texto">
-  Ese día fue uno de mis favoritos…
-  <br><br>
-  Porque estaba contigo ❤️
+  <div class="top">
+    <span>EDICIÓN ESPECIAL</span>
+    <span>Febrero 2026 - Nikol Orellana</span>
+  </div>
+
+  <div class="chapter">
+    🧩 CAPÍTULO III — El verdadero comienzo
+  </div>
+
+  <div class="story">
+Cuando estaba por culminar la universidad,
+por fin comenzamos a conversar.
+
+La excusa fue ayudarte con Datamine.
+
+Pero la verdad…
+es que solo necesitaba una razón para acercarme a ti.
+
+Y desde ahí, algo cambió.
+
+Las conversaciones dejaron de ser casuales.
+El interés dejó de ser silencioso.
+Y lo que empezó como una ayuda,
+se convirtió en algo que hoy significa mucho más.
+
+Hoy 14 no estoy contigo,
+y me pesa no poder estar ahí.
+
+Pero quiero que sepas algo claro, sin rodeos:
+
+No fue casualidad.
+No fue coincidencia.
+Y no fue tarde.
+
+Fue cuando tenía que ser.
+
+Y ahora que estamos aquí…
+ya no quiero quedarme con lo que pudo haber sido.
+
+Quiero construir lo que puede ser.
+  </div>
+
+  <div class="question">
+    <span>¿Quieres estar a mi lado?</span>
+  </div>
+
+  <div class="buttons">
+    <button onclick="aceptar()">Sí, quiero 💕</button>
+    <button onclick="aceptar()">Siempre contigo ❤️</button>
+  </div>
+
 </div>
 
-<a href="final.html" class="boton">Continuar 💖</a>
-
-<audio id="musica" loop>
-  <source src="those-eyes.mp3" type="audio/mpeg">
-</audio>
+<script>
+function aceptar(){
+  window.location.href = "final.html";
+}
+</script>
 
 </body>
 </html>
