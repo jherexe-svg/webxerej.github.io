@@ -8,90 +8,43 @@
 <style>
 body{
   margin:0;
-  background:linear-gradient(#f8cdd6,#f3b6c4);
+  background:linear-gradient(#f4b9c6,#e4879c);
   font-family:'Georgia', serif;
-  color:#7a1c28;
   display:flex;
   justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+  padding:20px;
+  box-sizing:border-box;
 }
 
 .container{
-  max-width:500px;
-  width:100%;
-  padding:25px;
-  text-align:center;
+  max-width:360px;
 }
 
-/* Encabezado estilo revista */
-.top{
-  display:flex;
-  justify-content:space-between;
-  font-size:11px;
-  border-bottom:1px solid #7a1c28;
-  padding-bottom:6px;
-  margin-bottom:20px;
-  letter-spacing:1px;
-}
-
-.chapter{
-  font-size:14px;
-  letter-spacing:2px;
+.block{
+  opacity:0;
+  transform:translateY(10px);
+  transition:1.5s ease;
   margin-bottom:15px;
-}
-
-.story{
-  font-size:16px;
-  line-height:1.7;
-  white-space:pre-line;
-  margin-bottom:30px;
+  line-height:1.6;
 }
 
 .question{
-  font-size:20px;
-  margin-top:15px;
-}
-
-.question span{
-  display:block;
-  font-size:32px;
-  font-style:italic;
-  color:#c91d34;
-  margin-top:10px;
-}
-
-/* Botones */
-.buttons{
   margin-top:25px;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
+  font-size:18px;
+  font-style:italic;
 }
 
 button{
-  padding:12px;
-  font-size:14px;
-  border:2px solid #c91d34;
-  border-radius:25px;
-  background:white;
-  color:#c91d34;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
   background:#c91d34;
   color:white;
-  transform:scale(1.05);
-}
-
-@media(max-width:480px){
-  .story{
-    font-size:15px;
-  }
-  .question span{
-    font-size:28px;
-  }
+  cursor:pointer;
 }
 </style>
 </head>
@@ -100,62 +53,44 @@ button:hover{
 
 <div class="container">
 
-  <div class="top">
-    <span>EDICIÓN ESPECIAL</span>
-    <span>Febrero 2026 - Nikol Orellana</span>
-  </div>
+<div class="block">Cuando estaba por culminar la universidad, por fin comenzamos a conversar.</div>
 
-  <div class="chapter">
-    🧩 CAPÍTULO III — El verdadero comienzo
-  </div>
+<div class="block">La excusa fue ayudarte con Datamine.</div>
 
-  <div class="story">
-Cuando estaba por culminar la universidad,
-por fin comenzamos a conversar.
+<div class="block">Pero la verdad… solo necesitaba una razón para acercarme a ti.</div>
 
-La excusa fue ayudarte con Datamine.
+<div class="block">Y desde ahí, algo cambió.</div>
 
-Pero la verdad…
-es que solo necesitaba una razón para acercarme a ti.
+<div class="block">No fue casualidad. No fue coincidencia. Fue cuando tenía que ser.</div>
 
-Y desde ahí, algo cambió.
+<div class="block question">¿Quieres estar a mi lado?</div>
 
-Las conversaciones dejaron de ser casuales.
-El interés dejó de ser silencioso.
-Y lo que empezó como una ayuda,
-se convirtió en algo que hoy significa mucho más.
-
-Hoy 14 no estoy contigo,
-y me pesa no poder estar ahí.
-
-Pero quiero que sepas algo claro, sin rodeos:
-
-No fue casualidad.
-No fue coincidencia.
-Y no fue tarde.
-
-Fue cuando tenía que ser.
-
-Y ahora que estamos aquí…
-ya no quiero quedarme con lo que pudo haber sido.
-
-Quiero construir lo que puede ser.
-  </div>
-
-  <div class="question">
-    <span>¿Quieres estar a mi lado?</span>
-  </div>
-
-  <div class="buttons">
-    <button onclick="aceptar()">Sí, quiero 💕</button>
-    <button onclick="aceptar()">Siempre contigo ❤️</button>
-  </div>
+<button onclick="ir()">Sí 💕</button>
 
 </div>
 
+<audio id="musica" loop>
+<source src="musica-recuerdos.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-function aceptar(){
-  window.location.href = "final.html";
+const bloques=document.querySelectorAll(".block");
+
+bloques.forEach((b,i)=>{
+  setTimeout(()=>{
+    b.style.opacity=1;
+    b.style.transform="translateY(0)";
+  },1500*i);
+});
+
+document.addEventListener("click",function(){
+  const audio=document.getElementById("musica");
+  audio.volume=0.4;
+  audio.play();
+},{once:true});
+
+function ir(){
+  window.location.href="final.html";
 }
 </script>
 

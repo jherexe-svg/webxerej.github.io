@@ -8,110 +8,76 @@
 <style>
 body{
   margin:0;
-  font-family: 'Georgia', serif;
-  background: linear-gradient(180deg,#f9d5dc,#f4b9c6);
+  background:linear-gradient(#f8c9d4,#f3a6b8);
   display:flex;
   justify-content:center;
-  color:#6e1a25;
-  overflow-x:hidden;
+  align-items:center;
+  height:100vh;
+  font-family:'Georgia', serif;
+  text-align:center;
+  padding:20px;
+  box-sizing:border-box;
 }
 
 .container{
-  max-width:500px;
-  width:100%;
-  padding:25px;
-  text-align:center;
-}
-
-.top{
-  display:flex;
-  justify-content:space-between;
-  font-size:11px;
-  border-bottom:1px solid #6e1a25;
-  padding-bottom:6px;
-  margin-bottom:15px;
-}
-
-.title{
-  font-size:30px;
-  color:#c61c32;
-  margin:20px 0;
-  animation: fadeIn 2s ease;
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-}
-
-/* CARDS */
-.card{
-  background:white;
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.08);
-  transition:0.4s;
   position:relative;
-  opacity:0.6;
+  width:280px;
+  height:200px;
 }
 
-.card.unlocked{
-  opacity:1;
-  animation: appear 0.8s ease;
-}
-
-.card.locked{
-  pointer-events:none;
-  filter:blur(2px);
-}
-
-.number{
-  font-size:22px;
-  color:#c61c32;
-  margin-bottom:10px;
-}
-
-.hidden-text{
-  max-height:0;
-  overflow:hidden;
+/* SOBRE */
+.envelope{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#e75480;
+  border-radius:10px;
+  box-shadow:0 8px 15px rgba(0,0,0,0.2);
+  cursor:pointer;
   transition:0.6s ease;
+  z-index:2;
 }
 
-.card.active .hidden-text{
-  max-height:400px;
+/* SOLAPA */
+.flap{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:50%;
+  background:#ff6f91;
+  clip-path:polygon(0 0, 100% 0, 50% 100%);
+  transform-origin:top;
+  transition:0.8s ease;
+  z-index:3;
+}
+
+/* CARTA */
+.letter{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:white;
+  border-radius:10px;
+  padding:20px;
+  box-sizing:border-box;
+  font-size:14px;
+  line-height:1.6;
+  opacity:0;
+  transform:translateY(20px);
+  transition:0.8s ease;
+  z-index:1;
 }
 
 button{
-  margin-top:10px;
-  padding:7px 14px;
+  margin-top:15px;
+  padding:8px 18px;
   border:none;
-  background:#c61c32;
-  color:white;
   border-radius:20px;
+  background:#c91d34;
+  color:white;
   cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  background:#a91528;
-}
-
-/* Animaciones */
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(10px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-@keyframes appear{
-  from{opacity:0; transform:scale(0.95);}
-  to{opacity:1; transform:scale(1);}
-}
-
-/* Responsive */
-@media(max-width:480px){
-  .title{font-size:26px;}
+  font-size:13px;
 }
 </style>
 </head>
@@ -120,79 +86,49 @@ button:hover{
 
 <div class="container">
 
-<div class="top">
-  <span>EDICIÓN ESPECIAL</span>
-  <span>Febrero 2026 - Nikol Orellana</span>
+<div class="letter" id="carta">
+<h3>📖 CAPÍTULO II — El momento inesperado</h3>
+
+A veces la vida no avisa cuando algo importante está por comenzar.
+
+Entre trabajos, tareas y días normales,
+empezamos a hablar.
+
+Lo que parecía solo una conversación más,
+se convirtió en algo que esperaba cada día.
+
+Tu forma de ser.
+Tu sonrisa.
+Tu manera de explicarme las cosas con paciencia.
+
+Sin darme cuenta…
+ya no era casualidad que quisiera hablar contigo.
+
+<button onclick="siguiente()">Continuar 💕</button>
 </div>
 
-<div class="title">🧩 CAPÍTULO II — El tiempo que esperaba</div>
-
-<div class="grid">
-
-  <!-- CARD 1 -->
-  <div class="card unlocked" id="card1">
-    <div class="number">I</div>
-    <div class="hidden-text">
-Llegaste a octavo ciclo,
-y fue Fabiola quien, sin saberlo, acercó nuestros caminos.
-
-Desde noveno yo quería hablarte.
-Varias veces pensé en hacerlo.
-    </div>
-    <button onclick="openCard(1)">Leer</button>
-  </div>
-
-  <!-- CARD 2 -->
-  <div class="card locked" id="card2">
-    <div class="number">II</div>
-    <div class="hidden-text">
-Pero siempre faltaba algo:
-el momento, la señal, el valor exacto.
-    </div>
-    <button onclick="openCard(2)">Leer</button>
-  </div>
-
-  <!-- CARD 3 -->
-  <div class="card locked" id="card3">
-    <div class="number">III</div>
-    <div class="hidden-text">
-Y mientras el tiempo avanzaba,
-yo seguía con esa sensación guardada,
-como una conversación pendiente
-que no quería desaparecer.
-    </div>
-    <button onclick="openCard(3)">Leer</button>
-  </div>
-
-  <!-- CARD 4 -->
-  <div class="card locked" id="card4">
-    <div class="number">IV</div>
-    <div class="hidden-text">
-Hay historias que empiezan sin ruido,
-pero se quedan en el corazón mucho tiempo.
-
-La nuestra fue una de ellas.
-    </div>
-    <button onclick="openCard(4)">Leer</button>
-  </div>
+<div class="envelope" onclick="openCard()"></div>
+<div class="flap" id="flap"></div>
 
 </div>
 
-</div>
+<audio id="musica" loop>
+<source src="musica-recuerdos.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-function openCard(num){
+function openCard(){
+  document.getElementById("flap").style.transform="rotateX(180deg)";
+  document.getElementById("carta").style.opacity="1";
+  document.getElementById("carta").style.transform="translateY(0)";
+  
+  const audio=document.getElementById("musica");
+  audio.volume=0.3;
+  audio.play();
+}
 
-  const current = document.getElementById("card"+num);
-
-  current.classList.add("active");
-
-  // desbloquear siguiente
-  const next = document.getElementById("card"+(num+1));
-  if(next){
-    next.classList.remove("locked");
-    next.classList.add("unlocked");
-  }
+function siguiente(){
+  window.location.href="recuerdo3.html";
 }
 </script>
 
