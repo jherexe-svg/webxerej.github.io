@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Nikol 💌</title>
+<title>Una sorpresa</title>
 
 <style>
 body{
@@ -12,53 +12,132 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(#ffdce6,#ffc2d1);
+  background:#f6eaea;
   font-family:'Georgia', serif;
-  text-align:center;
   overflow:hidden;
 }
 
+/* CONTENEDOR */
 .container{
-  max-width:350px;
-  padding:20px;
-}
-
-h1{
-  font-size:22px;
-  margin-bottom:15px;
-}
-
-p{
-  font-size:16px;
-  margin-bottom:25px;
-}
-
-.buttons{
   position:relative;
-  height:100px;
+  width:90%;
+  max-width:360px;
+  height:260px;
+}
+
+/* SOBRE */
+.envelope{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:180px;
+  background:#f4a9b7;
+  border-radius:8px;
+  z-index:1;
+}
+
+.envelope:before{
+  content:"";
+  position:absolute;
+  top:-90px;
+  left:0;
+  width:0;
+  height:0;
+  border-left:50% solid transparent;
+  border-right:50% solid transparent;
+  border-bottom:90px solid #f4a9b7;
+}
+
+/* CARTA */
+.card{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:85%;
+  background:#f8f1e9;
+  padding:20px;
+  border-radius:6px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  z-index:3;
+  animation:float 3s ease-in-out infinite;
+  text-align:center;
+}
+
+@keyframes float{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(-6px);}
+}
+
+.card p{
+  margin:10px 0;
+  font-size:14px;
+}
+
+.heart{
+  font-size:30px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.heart:hover{
+  transform:scale(1.2);
+}
+
+.names{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  margin-top:15px;
+}
+
+/* BOTONES */
+.buttons{
+  margin-top:15px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
 }
 
 button{
-  padding:10px 25px;
+  padding:8px 16px;
   border:none;
-  border-radius:25px;
-  font-size:14px;
+  border-radius:20px;
+  font-size:13px;
   cursor:pointer;
-  position:absolute;
-  transition:0.3s ease;
+  transition:0.3s;
 }
 
 #yes{
   background:#c91d34;
   color:white;
-  left:50%;
-  transform:translateX(-50%);
+}
+
+#yes:hover{
+  background:#a8152a;
 }
 
 #no{
-  background:#555;
-  color:white;
-  left:20%;
+  background:white;
+  border:2px solid #c91d34;
+  color:#c91d34;
+  position:relative;
+}
+
+/* PÉTALOS */
+.petal{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#f4b6c2;
+  border-radius:50%;
+  opacity:0.6;
+  animation:fall linear infinite;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-10vh);}
+  100%{transform:translateY(110vh);}
 }
 </style>
 </head>
@@ -66,39 +145,65 @@ button{
 <body>
 
 <div class="container">
-  <h1>De: Jherex 💖</h1>
-  <p>Para: Nikol</p>
-  <p>¿Quieres ver algo especial?</p>
 
-  <div class="buttons">
-    <button id="yes" onclick="irIntro()">Sí 💕</button>
-    <button id="no" onclick="moverNo()">No</button>
+  <div class="card">
+    <p>Te tengo una sorpresa.</p>
+    <p>Para descubrirla<br>da click sobre el corazón</p>
+
+    <div class="heart" onclick="mostrarBotones()">❤️</div>
+
+    <div class="names">
+      <span>De: Jherex</span>
+      <span>Para: Nikol</span>
+    </div>
+
+    <div class="buttons" id="buttons" style="display:none;">
+      <button id="yes" onclick="ir()">SI 💕</button>
+      <button id="no" onclick="moverNo()">NO 😅</button>
+    </div>
   </div>
+
+  <div class="envelope"></div>
+
 </div>
 
 <script>
-let contador = 0;
+let intentos = 0;
+
+function mostrarBotones(){
+  document.getElementById("buttons").style.display = "flex";
+}
+
+function ir(){
+  window.location.href = "intro.html";
+}
 
 function moverNo(){
-  const noBtn = document.getElementById("no");
-  contador++;
+  intentos++;
+  const btn = document.getElementById("no");
 
-  if(contador < 3){
-    const randomX = Math.random() * 200 - 100;
-    const randomY = Math.random() * 60 - 30;
-    noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+  if(intentos < 3){
+    const x = Math.random()*120 - 60;
+    const y = Math.random()*60 - 30;
+    btn.style.transform = `translate(${x}px,${y}px)`;
   } else {
-    noBtn.style.display = "none";
+    btn.innerText = "Ups... mejor sí 😅";
+    btn.style.transform = "scale(0)";
+    setTimeout(()=>{
+      btn.style.display="none";
+    },400);
   }
 }
 
-function irIntro(){
-  document.body.style.transition="0.8s";
-  document.body.style.opacity="0";
-  setTimeout(()=>{
-    window.location.href="intro.html";
-  },800);
-}
+/* pétalos */
+setInterval(()=>{
+  const petal = document.createElement("div");
+  petal.classList.add("petal");
+  petal.style.left = Math.random()*100 + "vw";
+  petal.style.animationDuration = (6 + Math.random()*4) + "s";
+  document.body.appendChild(petal);
+  setTimeout(()=>petal.remove(),8000);
+},700);
 </script>
 
 </body>
