@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Nikol 💖</title>
+<title>Una sorpresa</title>
 
 <style>
 body{
@@ -12,70 +12,194 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#ff416c,#ff4b2b);
-  font-family: 'Segoe UI', sans-serif;
-  text-align:center;
+  background:#f6eaea;
+  font-family:'Georgia', serif;
   overflow:hidden;
 }
 
+/* Pétalos suaves */
+.petal{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#f4b6c2;
+  border-radius:50%;
+  opacity:0.6;
+  animation:fall 8s linear infinite;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-10vh);}
+  100%{transform:translateY(110vh);}
+}
+
+/* Contenedor */
+.container{
+  position:relative;
+  width:320px;
+  text-align:center;
+}
+
+/* Sobre */
+.envelope{
+  width:320px;
+  height:200px;
+  background:#f4a9b7;
+  position:relative;
+  border-radius:8px;
+}
+
+.envelope:before{
+  content:"";
+  position:absolute;
+  top:-100px;
+  left:0;
+  width:0;
+  height:0;
+  border-left:160px solid transparent;
+  border-right:160px solid transparent;
+  border-bottom:100px solid #f4a9b7;
+}
+
+/* Carta */
 .card{
-  background:white;
-  padding:40px;
-  border-radius:20px;
-  width:85%;
-  max-width:350px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.3);
-  animation:fade 1.5s ease;
+  position:absolute;
+  top:-80px;
+  left:20px;
+  width:280px;
+  background:#f8f1e9;
+  padding:20px;
+  border-radius:6px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  animation:float 3s ease-in-out infinite;
 }
 
-h1{
-  font-size:22px;
-  color:#ff416c;
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
 }
 
-button{
-  padding:12px 20px;
-  border:none;
-  border-radius:25px;
-  margin:10px;
-  font-size:16px;
+.card p{
+  margin:10px 0;
+  font-size:14px;
+}
+
+.heart{
+  font-size:28px;
   cursor:pointer;
   transition:0.3s;
 }
 
-.si{
-  background:#ff416c;
+.heart:hover{
+  transform:scale(1.2);
+}
+
+.names{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  margin-top:15px;
+}
+
+/* Botones */
+.buttons{
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:15px;
+}
+
+button{
+  padding:8px 18px;
+  border:none;
+  border-radius:20px;
+  font-size:13px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+#yes{
+  background:#c91d34;
   color:white;
 }
 
-.no{
-  background:#ccc;
-  position:absolute;
+#yes:hover{
+  background:#a8152a;
 }
 
-@keyframes fade{
-  from{opacity:0; transform:scale(0.8);}
-  to{opacity:1; transform:scale(1);}
+#no{
+  background:white;
+  border:2px solid #c91d34;
+  color:#c91d34;
+  position:relative;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1>Nikol 💖<br>¿Quieres vivir algo especial conmigo?</h1>
-  <br>
-  <button class="si" onclick="window.location.href='galeria.html'">Sí ❤️</button>
-  <button class="no" id="noBtn">No 😜</button>
+<div class="container">
+
+  <div class="card">
+    <p>Te tengo una sorpresa.</p>
+    <p>Para descubrirla<br>da click sobre el corazón</p>
+
+    <div class="heart" onclick="mostrarBotones()">❤️</div>
+
+    <div class="names">
+      <span>De: Jherex</span>
+      <span>Para: Nikol</span>
+    </div>
+
+    <div class="buttons" id="buttons" style="display:none;">
+      <button id="yes" onclick="ir()">SI 💕</button>
+      <button id="no" onclick="moverNo()">NO 😅</button>
+    </div>
+  </div>
+
+  <div class="envelope"></div>
+
 </div>
 
 <script>
-const noBtn=document.getElementById("noBtn");
+let intentos = 0;
 
-noBtn.addEventListener("mouseover",()=>{
-  noBtn.style.top=Math.random()*80+"vh";
-  noBtn.style.left=Math.random()*80+"vw";
-});
+function mostrarBotones(){
+  document.getElementById("buttons").style.display = "flex";
+}
+
+function ir(){
+  window.location.href = "recuerdo1.html";
+}
+
+function moverNo(){
+  intentos++;
+
+  const btn = document.getElementById("no");
+
+  if(intentos < 3){
+    const x = Math.random()*150 - 75;
+    const y = Math.random()*80 - 40;
+    btn.style.transform = `translate(${x}px,${y}px)`;
+  } else {
+    btn.innerText = "Ups... mejor sí 😅";
+    btn.style.transform = "scale(0)";
+    setTimeout(()=>{
+      btn.style.display="none";
+    },400);
+  }
+}
+
+/* Generar pétalos */
+setInterval(()=>{
+  const petal = document.createElement("div");
+  petal.classList.add("petal");
+  petal.style.left = Math.random()*100 + "vw";
+  petal.style.animationDuration = (6 + Math.random()*4) + "s";
+  document.body.appendChild(petal);
+  setTimeout(()=>petal.remove(),8000);
+},600);
 </script>
 
 </body>
