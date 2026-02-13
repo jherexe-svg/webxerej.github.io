@@ -54,13 +54,22 @@ canvas{
 
 <div class="contenedor">
     <div class="texto-principal" id="texto">
-        Desde aquel primer momento supe que algo especial comenzaba.
-        No fue algo ruidoso ni exagerado… fue más bien una chispa suave,
-        de esas que iluminan sin avisar.
-        Recuerdo cómo todo parecía normal,
-        pero dentro de mí algo ya estaba cambiando.
-        Fue ahí cuando entendí que no era casualidad,
-        era el inicio de una historia que todavía se sigue escribiendo.
+        Desde aquel primer momento supe que algo distinto estaba comenzando.
+        
+        No fue algo evidente.
+        No fue algo que todos pudieran notar.
+        
+        Fue una sensación pequeña…
+        pero constante.
+        
+        Como una chispa silenciosa
+        que empezaba a iluminar algo que aún no tenía nombre.
+        
+        Y aunque parecía un día normal,
+        dentro de mí ya estaba cambiando algo.
+        
+        Ahí entendí que no era casualidad.
+        Era el inicio.
     </div>
 </div>
 
@@ -138,10 +147,12 @@ function createBranch(x,y,length,angle,width,depth){
 }
 
 function createTree(){
-    let baseX=canvas.width*0.15;
-    let baseY=canvas.height*0.9;
+    let baseX=canvas.width/2;
+    let baseY=canvas.height*0.95;
 
-    createBranch(baseX,baseY,120,0,10,4);
+    //createBranch(baseX,baseY,120,0,10,4);
+    createBranch(endX,endY,length*0.75,angle-0.4,width*0.75,depth-1);
+    createBranch(endX,endY,length*0.75,angle+0.4,width*0.75,depth-1);
 
     // Cuando termina el árbol
     setTimeout(()=>{
