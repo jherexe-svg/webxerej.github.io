@@ -24,6 +24,7 @@ canvas{
     left:0;
 }
 
+/* CONTENIDO PRINCIPAL */
 .contenido{
     position:absolute;
     top:50%;
@@ -38,30 +39,86 @@ canvas{
 }
 
 h1{
-    font-size: clamp(28px,6vw,46px);
+    font-size: clamp(30px,7vw,52px);
     margin-bottom:15px;
-
-    background: linear-gradient(45deg, #ff1744, #ff4d6d, #ff8fa3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    animation: brillo 3s infinite alternate;
+    color:white;
+    text-shadow:
+        0 0 15px rgba(255,255,255,0.9),
+        0 0 30px rgba(255,50,80,0.8),
+        0 0 50px rgba(255,0,0,0.6);
+    animation: latidoTitulo 2s infinite ease-in-out;
 }
 
 p{
     font-size: clamp(16px,4vw,20px);
-    line-height:1.5;
-    color:#ffe6ea;
+    line-height:1.6;
+    color:#fff0f5;
+    text-shadow:0 0 10px rgba(0,0,0,0.6);
 }
 
-@keyframes brillo{
+/* Animación suave de latido del título */
+@keyframes latidoTitulo{
+    0%{ transform:scale(1); }
+    50%{ transform:scale(1.05); }
+    100%{ transform:scale(1); }
+}
+
+/* CORAZONES DORADOS */
+.corazones{
+    position:absolute;
+    bottom:25px;
+    right:25px;
+    display:flex;
+    gap:15px;
+    z-index:15;
+}
+
+.heart{
+    position:relative;
+    width:50px;
+    height:45px;
+    background:gold;
+    transform:rotate(-45deg);
+    animation: brilloDorado 3s infinite alternate;
+}
+
+.heart::before,
+.heart::after{
+    content:"";
+    position:absolute;
+    width:50px;
+    height:45px;
+    background:gold;
+    border-radius:50%;
+}
+
+.heart::before{
+    top:-25px;
+    left:0;
+}
+
+.heart::after{
+    left:25px;
+    top:0;
+}
+
+.letra{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(45deg);
+    font-weight:bold;
+    font-size:18px;
+    color:#8b0000;
+}
+
+/* Brillo dorado */
+@keyframes brilloDorado{
     from{
-        text-shadow: 0 0 10px rgba(255,0,0,0.4),
-                     0 0 20px rgba(255,50,80,0.3);
+        box-shadow:0 0 10px gold, 0 0 20px goldenrod;
     }
     to{
-        text-shadow: 0 0 20px rgba(255,0,0,0.8),
-                     0 0 40px rgba(255,80,120,0.6);
+        box-shadow:0 0 25px gold, 0 0 40px goldenrod;
     }
 }
 </style>
@@ -77,6 +134,16 @@ p{
         Gracias por ser parte de esta historia.<br>
         Lo mejor apenas comienza.
     </p>
+</div>
+
+<!-- CORAZONES CON INICIALES -->
+<div class="corazones">
+    <div class="heart">
+        <div class="letra">N</div>
+    </div>
+    <div class="heart">
+        <div class="letra">J</div>
+    </div>
 </div>
 
 <script>
@@ -124,7 +191,6 @@ function initHeart(){
     }
 }
 
-/* Partículas de fondo */
 for(let i=0;i<50;i++){
     bgParticles.push({
         x:Math.random()*canvas.width,
@@ -181,7 +247,7 @@ function animate(){
 
     if(formed){
         let beat=Math.sin(beatTime);
-        beatScale=1+(beat>0?beat*0.12:beat*0.05); // doble latido natural
+        beatScale=1+(beat>0?beat*0.12:beat*0.05);
     }
 
     particles.forEach(p=>{
