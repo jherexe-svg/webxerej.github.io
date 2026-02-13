@@ -55,20 +55,24 @@ p{
     text-shadow:0 0 10px rgba(0,0,0,0.6);
 }
 
-/* CORAZONES DORADOS SOLO CONTORNO */
+/* CORAZONES DORADOS */
 .corazones{
     position:absolute;
-    bottom:40px;
-    right:40px;
+    top:66%;
+    left:50%;
+    transform:translateX(-50%);
     display:flex;
-    gap:30px; /* más separados */
+    gap:16px;
     z-index:15;
+    opacity:0;
 }
 
 .heart-outline{
-    width:60px;
-    height:55px;
+    width:36px;
+    height:32px;
     position:relative;
+    transform:scale(0.8);
+    opacity:0;
 }
 
 .heart-outline svg{
@@ -78,21 +82,47 @@ p{
 
 .heart-outline path{
     fill:none;
-    stroke:gold;
-    stroke-width:3;
-    filter: drop-shadow(0 0 6px gold);
-    animation: brillo 2.5s infinite alternate;
+    stroke:#ffd700;
+    stroke-width:2.2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-dasharray:200;
+    stroke-dashoffset:200;
+    filter: drop-shadow(0 0 6px rgba(255,215,0,0.8));
 }
 
+/* Letras */
 .letra{
     position:absolute;
-    top:50%;
+    top:52%;
     left:50%;
     transform:translate(-50%,-50%);
     font-weight:bold;
-    font-size:20px;
-    color:gold;
-    text-shadow:0 0 8px gold;
+    font-size:13px;
+    color:#ffd700;
+    text-shadow:0 0 6px rgba(255,215,0,0.8);
+    opacity:0;
+}
+
+/* Animación de dibujo */
+@keyframes drawHeart{
+    to{
+        stroke-dashoffset:0;
+    }
+}
+
+/* Aparición suave */
+@keyframes fadeInScale{
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* Mini latido */
+@keyframes miniBeat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.15);}
 }
 
 /* Brillo animado */
@@ -122,19 +152,25 @@ p{
 </div>
 
 <!-- CORAZONES SOLO CONTORNO -->
-<div class="corazones">
-    <div class="heart-outline">
-        <svg viewBox="0 0 32 29.6">
-            <path d="M23.6,0c-3.4,0-6.4,2-7.6,5C14.8,2,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4
-                     c0,9.4,16,21.2,16,21.2s16-11.8,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+<div class="corazones" id="corazones">
+    <div class="heart-outline heart1">
+        <svg viewBox="0 0 24 22">
+            <path d="M12 21s-6.7-4.6-9.5-8.2C-0.3 9.5 1.5 4.5 5.8 3.6
+                     8.3 3.1 10.5 4.4 12 6.3
+                     13.5 4.4 15.7 3.1 18.2 3.6
+                     22.5 4.5 24.3 9.5 21.5 12.8
+                     18.7 16.4 12 21 12 21z"/>
         </svg>
         <div class="letra">N</div>
     </div>
 
-    <div class="heart-outline">
-        <svg viewBox="0 0 32 29.6">
-            <path d="M23.6,0c-3.4,0-6.4,2-7.6,5C14.8,2,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4
-                     c0,9.4,16,21.2,16,21.2s16-11.8,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+    <div class="heart-outline heart2">
+        <svg viewBox="0 0 24 22">
+            <path d="M12 21s-6.7-4.6-9.5-8.2C-0.3 9.5 1.5 4.5 5.8 3.6
+                     8.3 3.1 10.5 4.4 12 6.3
+                     13.5 4.4 15.7 3.1 18.2 3.6
+                     22.5 4.5 24.3 9.5 21.5 12.8
+                     18.7 16.4 12 21 12 21z"/>
         </svg>
         <div class="letra">J</div>
     </div>
@@ -230,9 +266,10 @@ function animate(){
 
     if(progress<1){
         progress+=0.01;
-    }else{
+    }else if(!formed){
         formed=true;
         document.getElementById("contenido").style.opacity=1;
+        mostrarCorazones();
     }
 
     if(formed) beatTime+=0.15;
@@ -271,9 +308,68 @@ function animate(){
 
     requestAnimationFrame(animate);
 }
+    function mostrarCorazones(){
+    const cont = document.getElementById("corazones");
+    const heart1 = document.querySelector(".heart1");
+    const heart2 = document.querySelector(".heart2");
+
+    cont.style.opacity = "1";
+
+    // Primer corazón
+    setTimeout(()=>{
+        heart1.style.opacity="1";
+        heart1.style.animation="fadeInScale 0.6s forwards";
+        heart1.querySelector("path").style.animation="drawHeart 1s forwards";
+        heart1.querySelector(".letra").style.opacity="1";
+    },600);
+
+    // Segundo corazón aparece después
+    setTimeout(()=>{
+        heart2.style.opacity="1";
+        heart2.style.animation="fadeInScale 0.6s forwards";
+        heart2.querySelector("path").style.animation="drawHeart 1s forwards";
+        heart2.querySelector(".letra").style.opacity="1";
+    },1300);
+
+    // Mini latido sincronizado
+    setTimeout(()=>{
+        heart1.style.animation="miniBeat 1.2s infinite";
+        heart2.style.animation="miniBeat 1.2s infinite";
+    },2500);
+}
 
 initHeart();
 animate();
+    function mostrarCorazones(){
+    const cont = document.getElementById("corazones");
+    const heart1 = document.querySelector(".heart1");
+    const heart2 = document.querySelector(".heart2");
+
+    cont.style.opacity = "1";
+
+    // Primer corazón
+    setTimeout(()=>{
+        heart1.style.opacity="1";
+        heart1.style.animation="fadeInScale 0.6s forwards";
+        heart1.querySelector("path").style.animation="drawHeart 1s forwards";
+        heart1.querySelector(".letra").style.opacity="1";
+    },600);
+
+    // Segundo corazón aparece después
+    setTimeout(()=>{
+        heart2.style.opacity="1";
+        heart2.style.animation="fadeInScale 0.6s forwards";
+        heart2.querySelector("path").style.animation="drawHeart 1s forwards";
+        heart2.querySelector(".letra").style.opacity="1";
+    },1300);
+
+    // Mini latido sincronizado
+    setTimeout(()=>{
+        heart1.style.animation="miniBeat 1.2s infinite";
+        heart2.style.animation="miniBeat 1.2s infinite";
+    },2500);
+}
+
 </script>
 
 </body>
