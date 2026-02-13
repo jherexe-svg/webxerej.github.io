@@ -170,7 +170,7 @@ button{
 <script>
 let intentos = 0;
 
-/* Evitar botón atrás cuando esté bloqueado */
+/* Evitar botón atrás */
 history.pushState(null, null, location.href);
 window.addEventListener("popstate", function () {
   history.pushState(null, null, location.href);
@@ -193,12 +193,12 @@ function moverNo(){
     const y = Math.random()*60 - 30;
     btn.style.transform = `translate(${x}px,${y}px)`;
   } else {
-    btn.disabled = true; // ya no se puede volver a presionar
+    btn.disabled = true;
     pedirClave();
   }
 }
 
-/* 🔐 SISTEMA DE BLOQUEO DEFINITIVO */
+/* 🔐 BLOQUEO */
 
 function pedirClave(){
   
@@ -217,14 +217,16 @@ function pedirClave(){
   bloqueo.style.color = "white";
   bloqueo.style.fontFamily = "Georgia, serif";
   bloqueo.style.zIndex = "9999";
+  bloqueo.style.textAlign = "center";
+  bloqueo.style.padding = "20px";
 
   bloqueo.innerHTML = `
     <h2 style="margin-bottom:15px;">🔒 Sistema bloqueado</h2>
-    <p style="margin-bottom:20px; text-align:center; max-width:280px;">
+    <p style="margin-bottom:20px; max-width:300px;">
       Intentaste decir que no... <br><br>
       Ingresa la clave de 4 dígitos para continuar.
     </p>
-    <input id="claveInput" type="password" maxlength="4" 
+    <input id="claveInput" type="password" maxlength="4"
       style="padding:12px; font-size:20px; text-align:center; border-radius:10px; border:none; outline:none;">
     <p id="mensajeError" style="color:#ff6b6b; margin-top:15px;"></p>
   `;
@@ -236,29 +238,36 @@ function pedirClave(){
 
   input.addEventListener("input", function(){
     if(this.value.length === 4){
-      verificarClave(this.value);
+      mostrarError();
     }
   });
 }
 
-function verificarClave(valor){
+function mostrarError(){
   const mensaje = document.getElementById("mensajeError");
+  const input = document.getElementById("claveInput");
 
   mensaje.innerHTML = "Clave incorrecta ❤️‍🔥";
 
+  // vibración visual
+  input.style.transition = "0.1s";
+  input.style.transform = "translateX(-5px)";
+  setTimeout(()=> input.style.transform = "translateX(5px)",100);
+  setTimeout(()=> input.style.transform = "translateX(0)",200);
+
   setTimeout(()=>{
-    bloquearDefinitivo();
-  },800);
+    pantallaFinalRomantica();
+  },1200);
 }
 
-function bloquearDefinitivo(){
+function pantallaFinalRomantica(){
   const bloqueo = document.getElementById("bloqueo");
 
   bloqueo.innerHTML = `
     <h2 style="margin-bottom:15px;">💖 Acceso Denegado</h2>
-    <p style="text-align:center; margin-bottom:25px; max-width:280px;">
-      Este corazón no reconoce un NO como respuesta... <br><br>
-      Está programado para elegir el amor. ❤️
+    <p style="margin-bottom:25px; max-width:300px;">
+      Este sistema no reconoce un NO como respuesta... <br><br>
+      Está diseñado para elegir el amor. ❤️
     </p>
     <button onclick="forzarSi()" 
       style="
