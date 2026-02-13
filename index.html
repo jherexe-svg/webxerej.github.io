@@ -182,17 +182,98 @@ function moverNo(){
   intentos++;
   const btn = document.getElementById("no");
 
-  if(intentos < 3){
+  if(intentos < 2){
     const x = Math.random()*120 - 60;
     const y = Math.random()*60 - 30;
     btn.style.transform = `translate(${x}px,${y}px)`;
   } else {
-    btn.innerText = "Ups... mejor sí 😅";
-    btn.style.transform = "scale(0)";
-    setTimeout(()=>{
-      btn.style.display="none";
-    },400);
+    pedirClave();
   }
+}
+
+/* 🔐 BLOQUEO ROMÁNTICO */
+
+function pedirClave(){
+  
+  // Crear pantalla de bloqueo
+  const bloqueo = document.createElement("div");
+  bloqueo.id = "bloqueo";
+  bloqueo.style.position = "fixed";
+  bloqueo.style.top = "0";
+  bloqueo.style.left = "0";
+  bloqueo.style.width = "100%";
+  bloqueo.style.height = "100%";
+  bloqueo.style.background = "rgba(0,0,0,0.85)";
+  bloqueo.style.display = "flex";
+  bloqueo.style.flexDirection = "column";
+  bloqueo.style.justifyContent = "center";
+  bloqueo.style.alignItems = "center";
+  bloqueo.style.color = "white";
+  bloqueo.style.fontFamily = "Georgia, serif";
+  bloqueo.style.zIndex = "999";
+
+  bloqueo.innerHTML = `
+    <h2 style="margin-bottom:15px;">🔒 Sistema bloqueado</h2>
+    <p style="margin-bottom:20px; text-align:center;">
+      Parece que intentaste decir que no...<br>
+      Ingresa la clave de 4 dígitos para continuar.
+    </p>
+    <input id="claveInput" type="password" maxlength="4" 
+      style="padding:10px; font-size:18px; text-align:center; border-radius:8px; border:none; outline:none;">
+    <p id="mensajeError" style="color:#ff6b6b; margin-top:15px;"></p>
+  `;
+
+  document.body.appendChild(bloqueo);
+
+  const input = document.getElementById("claveInput");
+  input.focus();
+
+  input.addEventListener("input", function(){
+    if(this.value.length === 4){
+      verificarClave(this.value);
+    }
+  });
+}
+
+function verificarClave(valor){
+  const mensaje = document.getElementById("mensajeError");
+
+  if(valor === "1432"){ // puedes cambiar la clave si quieres
+    mensaje.innerHTML = "Clave incorrecta ❤️‍🔥";
+    setTimeout(()=>{
+      bloquearDefinitivo();
+    },1000);
+  } else {
+    mensaje.innerHTML = "Clave incorrecta ❤️‍🔥";
+  }
+}
+
+function bloquearDefinitivo(){
+  const bloqueo = document.getElementById("bloqueo");
+
+  bloqueo.innerHTML = `
+    <h2 style="margin-bottom:15px;">💖 Acceso Denegado</h2>
+    <p style="text-align:center; margin-bottom:25px;">
+      Este corazón no acepta un NO como respuesta... <br><br>
+      Está programado para amar. ❤️
+    </p>
+    <button onclick="forzarSi()" 
+      style="
+        padding:12px 25px;
+        border:none;
+        border-radius:25px;
+        font-size:16px;
+        background:#c91d34;
+        color:white;
+        cursor:pointer;
+      ">
+      Está bien... SI 💕
+    </button>
+  `;
+}
+
+function forzarSi(){
+  window.location.href = "intro.html";
 }
 
 /* pétalos */
