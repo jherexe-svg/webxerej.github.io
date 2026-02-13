@@ -3,208 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recuerdo 1 ❤️</title>
+<title>Recuerdo 1</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
-    background: radial-gradient(circle at center, #3b0000, #120000);
-    font-family: Georgia, serif;
-    overflow:hidden;
+    margin:0;
+    font-family:Georgia, serif;
+    background: radial-gradient(circle at top,#4b0000,#120000);
     color:white;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    min-height:100vh;
+    overflow:hidden;
     cursor:pointer;
 }
 
-canvas{
-    position:absolute;
-    top:0;
-    left:0;
+/* PUZZLE */
+.puzzle{
+    position:fixed;
+    inset:0;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    z-index:100;
 }
 
-.contenedor{
-    position:relative;
-    z-index:10;
-    width:70%;
+.pieza{
+    background:linear-gradient(135deg,#ff4d6d,#800000);
+    transform:scale(0);
+    animation:aparece .5s forwards;
+}
+.pieza:nth-child(n){animation-delay:calc(var(--i)*.2s);}
+@keyframes aparece{to{transform:scale(1);}}
+
+/* CONTENIDO */
+.contenido{
+    opacity:0;
+    transition:2s;
     max-width:600px;
+    padding:30px;
     text-align:center;
-    padding:20px;
+    line-height:1.7;
 }
 
-.texto-principal{
-    font-size: clamp(18px,4vw,26px);
-    line-height:1.6;
-    text-shadow:0 0 10px rgba(255,0,0,0.4);
-    opacity:0; /* oculto al inicio */
-    transition:1s ease;
+h2{
+    color:#ff6b6b;
+    margin-bottom:20px;
 }
 </style>
 </head>
-<body onclick="irRecuerdo2()">
 
-<canvas id="treeCanvas"></canvas>
+<body onclick="location.href='recuerdo2.html'">
 
-<div class="contenedor">
-    <div class="texto-principal" id="texto">
-        Desde aquel primer momento supe que algo especial comenzaba,
-        como una chispa roja iluminando el destino que nos uniría.
-    </div>
+<div class="puzzle" id="puzzle">
+    <div class="pieza" style="--i:1"></div>
+    <div class="pieza" style="--i:2"></div>
+    <div class="pieza" style="--i:3"></div>
+    <div class="pieza" style="--i:4"></div>
+    <div class="pieza" style="--i:5"></div>
+    <div class="pieza" style="--i:6"></div>
+    <div class="pieza" style="--i:7"></div>
+    <div class="pieza" style="--i:8"></div>
+    <div class="pieza" style="--i:9"></div>
+</div>
+
+<div class="contenido" id="contenido">
+<h2>El Inicio 🌳</h2>
+<p>
+Desde aquel primer momento supe que algo especial comenzaba.
+No fue algo ruidoso ni exagerado… fue más bien una chispa suave,
+de esas que iluminan sin avisar.
+<br><br>
+Recuerdo cómo todo parecía normal,
+pero dentro de mí algo ya estaba cambiando.
+<br><br>
+Fue ahí cuando entendí que no era casualidad,
+era el inicio de una historia que todavía se sigue escribiendo.
+</p>
 </div>
 
 <script>
-const canvas = document.getElementById("treeCanvas");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-window.addEventListener("resize",()=>{
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
-
-/* ====== ÁRBOL ====== */
-
-let branches=[];
-let leaves=[];
-let formed=false;
-
-class Branch{
-    constructor(x,y,length,angle,width,depth){
-        this.x=x;
-        this.y=y;
-        this.length=length;
-        this.angle=angle;
-        this.width=width;
-        this.progress=0;
-        this.depth=depth;
-    }
-
-    update(){
-        if(this.progress < 1){
-            this.progress += 0.02;
-        }
-    }
-
-    draw(){
-        ctx.save();
-        ctx.translate(this.x,this.y);
-        ctx.rotate(this.angle);
-
-        let grad=ctx.createLinearGradient(0,0,0,-this.length);
-        grad.addColorStop(0,"#4a0000");
-        grad.addColorStop(0.5,"#8b0000");
-        grad.addColorStop(1,"#ff2e63");
-
-        ctx.strokeStyle=grad;
-        ctx.lineWidth=this.width;
-        ctx.beginPath();
-        ctx.moveTo(0,0);
-        ctx.lineTo(0,-this.length*this.progress);
-        ctx.stroke();
-
-        ctx.restore();
-    }
-}
-
-function createBranch(x,y,length,angle,width,depth){
-    let branch=new Branch(x,y,length,angle,width,depth);
-    branches.push(branch);
-
-    if(depth>0){
-        setTimeout(()=>{
-            let endX = x + Math.sin(angle)*length;
-            let endY = y - Math.cos(angle)*length;
-
-            createBranch(endX,endY,length*0.7,angle-0.5,width*0.7,depth-1);
-            createBranch(endX,endY,length*0.7,angle+0.5,width*0.7,depth-1);
-        },600);
-    }else{
-        leaves.push({x:x,y:y});
-    }
-}
-
-function createTree(){
-    let baseX=canvas.width*0.15;
-    let baseY=canvas.height*0.9;
-
-    createBranch(baseX,baseY,120,0,10,4);
-
-    // Cuando termina el árbol
+setTimeout(()=>{
+    document.getElementById("puzzle").style.opacity="0";
     setTimeout(()=>{
-        formed=true;
-        mostrarTexto();
-    },4000);
-}
-
-/* ====== HOJAS CORAZÓN ====== */
-
-function drawHeart(x,y,size,color){
-    ctx.save();
-    ctx.translate(x,y);
-    ctx.scale(size,size);
-    ctx.beginPath();
-    ctx.moveTo(0,0);
-    ctx.bezierCurveTo(-1,-1,-2,1,0,2);
-    ctx.bezierCurveTo(2,1,1,-1,0,0);
-    ctx.fillStyle=color;
-    ctx.fill();
-    ctx.restore();
-}
-
-/* ====== ANIMACIÓN ====== */
-
-function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    branches.forEach(b=>{
-        b.update();
-        b.draw();
-    });
-
-    leaves.forEach(l=>{
-        drawHeart(l.x,l.y,5,"#ff4d6d");
-    });
-
-    requestAnimationFrame(animate);
-}
-
-createTree();
-animate();
-
-/* ====== TEXTO PALABRA POR PALABRA ====== */
-
-function mostrarTexto(){
-    const element=document.getElementById("texto");
-    let words=element.innerText.split(" ");
-    element.innerHTML="";
-    element.style.opacity=1;
-
-    let i=0;
-    let interval=setInterval(()=>{
-        if(i<words.length){
-            element.innerHTML+=words[i]+" ";
-            i++;
-        }else{
-            clearInterval(interval);
-        }
-    },300);
-}
-
-/* ====== CLICK PARA IR AL RECUERDO 2 ====== */
-
-function irRecuerdo2(){
-    window.location.href="recuerdo2.html";
-}
+        document.getElementById("puzzle").remove();
+        document.getElementById("contenido").style.opacity="1";
+    },1000);
+},2500);
 </script>
 
 </body>
 </html>
+
