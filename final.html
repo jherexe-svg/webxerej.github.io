@@ -46,7 +46,6 @@ h1{
         0 0 15px rgba(255,255,255,0.9),
         0 0 30px rgba(255,50,80,0.8),
         0 0 50px rgba(255,0,0,0.6);
-    animation: latidoTitulo 2s infinite ease-in-out;
 }
 
 p{
@@ -56,69 +55,55 @@ p{
     text-shadow:0 0 10px rgba(0,0,0,0.6);
 }
 
-/* Animación suave de latido del título */
-@keyframes latidoTitulo{
-    0%{ transform:scale(1); }
-    50%{ transform:scale(1.05); }
-    100%{ transform:scale(1); }
-}
-
-/* CORAZONES DORADOS */
+/* CORAZONES DORADOS SOLO CONTORNO */
 .corazones{
     position:absolute;
-    bottom:25px;
-    right:25px;
+    bottom:40px;
+    right:40px;
     display:flex;
-    gap:15px;
+    gap:30px; /* más separados */
     z-index:15;
 }
 
-.heart{
+.heart-outline{
+    width:60px;
+    height:55px;
     position:relative;
-    width:50px;
-    height:45px;
-    background:gold;
-    transform:rotate(-45deg);
-    animation: brilloDorado 3s infinite alternate;
 }
 
-.heart::before,
-.heart::after{
-    content:"";
-    position:absolute;
-    width:50px;
-    height:45px;
-    background:gold;
-    border-radius:50%;
+.heart-outline svg{
+    width:100%;
+    height:100%;
 }
 
-.heart::before{
-    top:-25px;
-    left:0;
-}
-
-.heart::after{
-    left:25px;
-    top:0;
+.heart-outline path{
+    fill:none;
+    stroke:gold;
+    stroke-width:3;
+    filter: drop-shadow(0 0 6px gold);
+    animation: brillo 2.5s infinite alternate;
 }
 
 .letra{
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%) rotate(45deg);
+    transform:translate(-50%,-50%);
     font-weight:bold;
-    font-size:18px;
-    color:#8b0000;
+    font-size:20px;
+    color:gold;
+    text-shadow:0 0 8px gold;
 }
 
-/* Brillo dorado */
-@keyframes brilloDorado{
+/* Brillo animado */
+@keyframes brillo{
     from{
-        box-shadow:0 0 10px gold, 0 0 20px goldenrod;
+        stroke-width:3;
+        filter: drop-shadow(0 0 4px gold);
     }
     to{
-        box-shadow:0 0 25px gold, 0 0 40px goldenrod;
+        stroke-width:4;
+        filter: drop-shadow(0 0 12px gold);
     }
 }
 </style>
@@ -136,12 +121,21 @@ p{
     </p>
 </div>
 
-<!-- CORAZONES CON INICIALES -->
+<!-- CORAZONES SOLO CONTORNO -->
 <div class="corazones">
-    <div class="heart">
+    <div class="heart-outline">
+        <svg viewBox="0 0 32 29.6">
+            <path d="M23.6,0c-3.4,0-6.4,2-7.6,5C14.8,2,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4
+                     c0,9.4,16,21.2,16,21.2s16-11.8,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+        </svg>
         <div class="letra">N</div>
     </div>
-    <div class="heart">
+
+    <div class="heart-outline">
+        <svg viewBox="0 0 32 29.6">
+            <path d="M23.6,0c-3.4,0-6.4,2-7.6,5C14.8,2,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4
+                     c0,9.4,16,21.2,16,21.2s16-11.8,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+        </svg>
         <div class="letra">J</div>
     </div>
 </div>
